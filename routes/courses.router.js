@@ -6,6 +6,7 @@ const isSignedIn = require('../middleware/is-signed-in')
 const Course = require('../models/Course')
 const School = require('../models/School');
 const Section = require("../models/Section");
+const isAdmin = require("../middleware/is-admin");
 
 //routes
 //all courses
@@ -21,7 +22,7 @@ router.get('/', async (req, res) => {
 })
 
 //create
-router.get('/new', async (req, res) => {
+router.get('/new', isSignedIn, isAdmin, async (req, res) => {
     try {
         const allSchools = await School.find()
         res.render('course/create-course.ejs', { schools: allSchools })
@@ -32,7 +33,7 @@ router.get('/new', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', isSignedIn, isAdmin, async (req, res) => {
     try {
         const { name, description, school } = req.body
         const createdCourse = await Course.create({
@@ -49,13 +50,13 @@ router.post('/', async (req, res) => {
 })
 
 //read one
-router.get('/:courseId', async (req,res)=>{
+router.get('/:courseId', async (req, res) => {
     try {
         const foundCourse = await Course.findById(req.params.courseId).populate('school')
         let sections
-        try{
-            sections = await Section.find({course: req.params.courseId})
-        }catch(err){
+        try {
+            sections = await Section.find({ course: req.params.courseId })
+        } catch (err) {
             sections = null
         }
         //const role = req.session.user.role
@@ -68,40 +69,40 @@ router.get('/:courseId', async (req,res)=>{
 })
 
 //update
-router.get('/:courseId/update', async (req,res)=>{
-    try{
+router.get('/:courseId/update', isSignedIn, isAdmin, async (req, res) => {
+    try {
         const foundCourse = await Course.findById(req.params.courseId)
         const allSchools = await School.find()
-        res.render('course/update-course.ejs', {course: foundCourse, schools: allSchools})
-    }catch(err){
+        res.render('course/update-course.ejs', { course: foundCourse, schools: allSchools })
+    } catch (err) {
         console.log('Error: ', err)
         res.redirect('/')
     }
 })
 
-router.put('/:courseId', async (req,res)=>{
-    try{
+router.put('/:courseId', isSignedIn, isAdmin, async (req, res) => {
+    try {
         const { name, description, school } = req.body
-        const updatedCourse = await Course.findByIdAndUpdate(req.params.courseId,{
+        const updatedCourse = await Course.findByIdAndUpdate(req.params.courseId, {
             name: name,
             description: description,
             school: school,
         })
 
         res.redirect('/courses/' + updatedCourse._id)
-    }catch(err){
+    } catch (err) {
         console.log('Error: ', err)
         res.redirect('/')
     }
 })
 
 //delete
-router.delete('/:courseId', async (req,res)=>{
-    try{
+router.delete('/:courseId', isSignedIn, isAdmin, async (req, res) => {
+    try {
         await Course.findByIdAndDelete(req.params.courseId)
-        await Section.deleteMany({course: req.params.courseId})
+        await Section.deleteMany({ course: req.params.courseId })
         res.redirect('/courses')
-    }catch(err){
+    } catch (err) {
         console.log('Error: ', err)
         res.redirect('/')
     }
