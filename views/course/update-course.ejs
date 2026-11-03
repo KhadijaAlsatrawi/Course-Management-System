@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Course</title>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+    <h1>Update Course</h1>
+
+    <form action="/courses/<%= course._id %>?_method=PUT" method="post">
+        <div>
+            <label for="name">Course name: </label>
+            <input 
+            name="name"
+            id="name"
+            type="text"
+            required
+            value="<%= course.name %>">
+        </div>
+        <div>
+            <label for="description">Description: </label>
+            <textarea 
+            name="description"
+            id="description"
+            required>
+            <%= course.description %>
+            </textarea>
+        </div>
+        <div>
+            <label for="school">School: </label>
+            <select name="school" id="school" required>
+                <% for (let oneSchool of schools){ %>
+                    <% if(String (course.school) === String (oneSchool._id)) {%>
+                        <option value="<%= oneSchool._id %>" selected><%= oneSchool.name %></option>
+                    <% }else{ %>
+                        <option value="<%= oneSchool._id %>"><%= oneSchool.name %></option>
+                    <% } %>
+                <% } %>
+            </select>
+        </div>
+
+        <button>Update Course</button>
+    </form>
+</body>
+</html>

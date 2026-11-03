@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
             description: description,
             school: school,
         })
-        res.redirect('/courses/' + createdCourse._id)
+        res.redirect('/courses')
 
     } catch (err) {
         console.log('Error: ', err)
@@ -69,11 +69,30 @@ router.get('/:courseId', async (req,res)=>{
 
 //update
 router.get('/:courseId/update', async (req,res)=>{
-
+    try{
+        const foundCourse = await Course.findById(req.params.courseId)
+        const allSchools = await School.find()
+        res.render('course/update-course.ejs', {course: foundCourse, schools: allSchools})
+    }catch(err){
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
 })
 
 router.put('/:courseId', async (req,res)=>{
+    try{
+        const { name, description, school } = req.body
+        const updatedCourse = await Course.findByIdAndUpdate(req.params.courseId,{
+            name: name,
+            description: description,
+            school: school,
+        })
 
+        res.redirect('/courses/' + updatedCourse._id)
+    }catch(err){
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
 })
 
 //delete
