@@ -7,6 +7,7 @@ const schoolSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+        unique: true,
         lowecase: true,
         minLength: 3,
         maxLength: 20

@@ -63,7 +63,7 @@ router.get('/:courseId', async (req,res)=>{
 
     } catch (err) {
         console.log('Error: ', err)
-
+        res.redirect('/')
     }
 })
 

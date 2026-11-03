@@ -15,7 +15,6 @@ const userSchema = new mongoose.Schema({
   role:{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Role',
-    default: Role.find({name: 'student'})
   }
 }, {timestamps: true});
 
