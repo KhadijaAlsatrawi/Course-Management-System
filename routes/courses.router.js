@@ -97,7 +97,14 @@ router.put('/:courseId', async (req,res)=>{
 
 //delete
 router.delete('/:courseId', async (req,res)=>{
-
+    try{
+        await Course.findByIdAndDelete(req.params.courseId)
+        await Section.deleteMany({course: req.params.courseId})
+        res.redirect('/courses')
+    }catch(err){
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
 })
 
 //export

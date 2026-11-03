@@ -14,6 +14,9 @@
 
     <% if(role === 'admin'){ %>
         <a href="/courses/<%= course._id %>/update">Update Course</a>
+        <form action="/courses/<%= course._id %>?_method=DELETE" method="post">
+            <button>Delete Course</button>
+        </form>
     <% } %>
 
     <h2>Sections</h2>
