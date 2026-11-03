@@ -5,18 +5,22 @@ const mongoose = require('mongoose')
 const sectionSchema = new mongoose.Schema({
     location: {
         type: String,
+        required: true
     },
     dayOfWeek: {
         type: String,
-        enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        required: true
     },
     time: {
         type: String,
-        match: /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/ 
+        match: /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/,
+        required: true
     },
     course:{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'Course'
+        ref:'Course',
+        required: true
     },
     students:[{
         type: mongoose.Schema.Types.ObjectId,
@@ -24,7 +28,8 @@ const sectionSchema = new mongoose.Schema({
     }],
     tutor:{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'User'
+        ref:'User',
+        required: true
     }
 }, { timestamps: true })
 
