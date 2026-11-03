@@ -15,7 +15,6 @@ router.get('/', async (req, res) => {
         res.render('course/index.ejs', { courses: allCourser })
 
     } catch (err) {
-        alert('Failed to load')
         console.log('Error: ', err)
         redirect('/')
     }
@@ -28,7 +27,6 @@ router.get('/new', async (req, res) => {
         res.render('course/create-course.ejs', { schools: allSchools })
 
     } catch (err) {
-        alert('Failed to load')
         console.log('Error: ', err)
         redirect('/')
     }
@@ -45,7 +43,6 @@ router.post('/', async (req, res) => {
         res.redirect('/courses/' + createdCourse._id)
 
     } catch (err) {
-        alert('Creation failes')
         console.log('Error: ', err)
         redirect('/')
     }
@@ -55,14 +52,18 @@ router.post('/', async (req, res) => {
 router.get('/:courseId', async (req,res)=>{
     try {
         const foundCourse = await Course.findById(req.params.courseId).populate('school')
-        const sections = await Section.find({course: req.params.courseId}).populate('tutor')
-        const role = req.session.user.role
-        res.render('course/course-details.ejs', { course: foundCourse, sections: sections, role: role })
+        let sections
+        try{
+            sections = await Section.find({course: req.params.courseId})
+        }catch(err){
+            sections = null
+        }
+        //const role = req.session.user.role
+        res.render('course/course-details.ejs', { course: foundCourse, sections: sections, role: 'admin' })
 
     } catch (err) {
-        alert('Failed to load')
         console.log('Error: ', err)
-        redirect('/')
+
     }
 })
 
