@@ -8,16 +8,17 @@
 <body>
     <%- include('../partials/navbar') %>
     <h1>Course List</h1>
-    <% if(!courses.length === 0){ %>
+    <% if(!courses.length == 0){ %>
         <% for(let oneCourse of courses){ %>
             <div class="course-div">
-                <h3><%= oneCourse.name %></h3> <p><b>School: </b> <%= oneCourse.school.name %></p>
+                <h3><%= oneCourse.name %></h3>
+                <p><b>School: </b> <%= oneCourse.school.name %></p>
                 <p><b>Description: </b> <%= oneCourse.description %></p>
                 <a href="/courses/<%= oneCourse._id %>">See Details</a>
             </div>
         <% } %>
     <% }else{ %>
-        <h2>No courses available</h2>
+        <h2>No Available Courses</h2>
     <% } %>
 </body>
 </html>
