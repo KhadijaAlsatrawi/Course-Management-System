@@ -8,14 +8,23 @@ const isStudent = require("../middleware/is-student");
 
 const Section = require("../models/Section");
 const Course = require('../models/Course');
+const User = require('../models/User');
+const Role = require("../models/Role");
 
 //routes
 //create
-router.get('/new', isSignedIn, isAdmin, async (req, res)=>{
-
+router.get('/new/:courseId', isSignedIn, isAdmin, async (req, res)=>{
+    try{
+        const foundCourse = await Course.findById(req.params.courseId)
+        const toturs = await User.find({role: await Role.find({name: 'tutor'})})
+        res.render('section/create-section.ejs', {course: foundCourse, tutors: toturs})
+    }catch(err){
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
 })
 
-router.post('/new', isSignedIn, isAdmin, async (req, res)=>{
+router.post('/:courseId', isSignedIn, isAdmin, async (req, res)=>{
 
 })
 

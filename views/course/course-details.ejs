@@ -21,7 +21,7 @@
 
     <h2>Sections</h2>
     <% if(role === 'admin'){ %>
-        <a href="/sections/new">Add Section</a>
+        <a href="/sections/new/<%= course._id %>">Add Section</a>
     <% }%>
     <ul>
         <% if(!sections){ %>
