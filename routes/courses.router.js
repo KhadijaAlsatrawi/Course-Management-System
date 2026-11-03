@@ -9,7 +9,7 @@ const School = require('../models/School')
 //routes
 //all courses
 router.get('/', async (req, res)=>{
-    const allCourser = await Course.find()
+    const allCourser = await Course.find().populate('school')
     res.render('course/index.ejs', {courses: allCourser})
 })
 
