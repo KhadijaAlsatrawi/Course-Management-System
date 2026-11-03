@@ -35,6 +35,9 @@
 
                     <% if(role === 'admin'){ %>
                         <a href="/sections/<%= oneSection._id %>/update">Update Section</a>
+                        <form action="/sections/<%= oneSection._id %>?_method=DELETE" method="post">
+                            <button>Delete Section</button>
+                        </form>
                     <% }else if (role === 'student') { %>
                     <form action="/sections/<%= oneSection._id %>/register" method="post">
                         <button>Register in section</button>
