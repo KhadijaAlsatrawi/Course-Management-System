@@ -5,7 +5,8 @@ const mongoose = require('mongoose')
 const sectionSchema = new mongoose.Schema({
     location: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     dayOfWeek: {
         type: String,

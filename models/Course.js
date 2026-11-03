@@ -6,12 +6,15 @@ const courseSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        trim: true,
         minLength: 3,
-        maxLength: 20
+        maxLength: 20,
+        toLowercase: true
     },
     description: {
         type: String,
         required: true,
+        trim: true,
         minLength: 3
     },
     school:{
