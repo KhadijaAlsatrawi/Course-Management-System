@@ -28,7 +28,7 @@
         </div>
         <div>
             <label for="school">School: </label>
-            <select>
+            <select name="school" id="school" required>
                 <% for (let oneSchool of schools){ %>
                     <option value="<%= oneSchool._id %>"><%= oneSchool.name %></option>
                 <% } %>

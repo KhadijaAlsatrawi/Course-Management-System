@@ -9,6 +9,7 @@
     <%- include('../partials/navbar') %>
     <h1>Course Details</h1>
     <h3>Name: <%= course.name %></h3>
+    <p><b>School: </b><%= course.school.name %></p>
     <p><b>Description: </b><%= course.description %></p>
 
     <% if(role === 'admin'){ %>

@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 
     } catch (err) {
         console.log('Error: ', err)
-        redirect('/')
+        res.redirect('/')
     }
 })
 
@@ -28,7 +28,7 @@ router.get('/new', async (req, res) => {
 
     } catch (err) {
         console.log('Error: ', err)
-        redirect('/')
+        res.redirect('/')
     }
 })
 
@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
 
     } catch (err) {
         console.log('Error: ', err)
-        redirect('/')
+        res.redirect('/')
     }
 })
 
