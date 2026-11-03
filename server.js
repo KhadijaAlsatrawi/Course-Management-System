@@ -13,8 +13,9 @@ const isSignedIn = require("./middleware/is-signed-in.js");
 const passUserToView = require("./middleware/pass-user-to-view.js");
 
 // routes Imports
-const authController = require("./routes/auth.routes.js");
-const indexController = require("./routes/index.routes.js");
+const authRouter = require("./routes/auth.routes.js");
+const indexRouter = require("./routes/index.routes.js");
+const courseRouter = require("./routes/courses.router.js");
 
 
 // Middleware
@@ -42,20 +43,10 @@ app.use(
 app.use(passUserToView)
 
 
-
-
-
-
-
-
-
-
 // Routes go here
-app.use('/auth',authController)
-app.use('/',indexController)
-
-
-
+app.use('/auth', authRouter)
+app.use('/', indexRouter)
+app.use('/courses', courseRouter)
 
 
 // connect to database and listen on Port 3000

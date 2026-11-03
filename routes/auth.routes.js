@@ -39,7 +39,7 @@ router.get("/sign-in", (req, res) => {
 
 router.post("/sign-in", async (req, res) => {
   // First, get the user from the database
-  const userInDatabase = await User.findOne({ username: req.body.username });
+  const userInDatabase = await User.findOne({ username: req.body.username }).populate('role');
   if (!userInDatabase) {
     return res.send("Login failed. Please try again.");
   }
@@ -58,7 +58,8 @@ router.post("/sign-in", async (req, res) => {
   // If there is other data you want to save to `req.session.user`, do so here!
   req.session.user = {
     username: userInDatabase.username,
-    _id: userInDatabase._id
+    _id: userInDatabase._id,
+    role: userInDatabase.role.name
   };
 
   res.redirect("/");

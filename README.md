@@ -28,7 +28,6 @@
 7.	I as a tutor, want to see the sections I teach.
 8.	I as an admin, want to do CRUD on courses.
 9.	I as an admin, want to do CRUD on sections.
-10.	I as an admin, want to create users.
 
 
 ## Database Design
