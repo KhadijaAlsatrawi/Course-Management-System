@@ -20,6 +20,9 @@
     <% } %>
 
     <h2>Sections</h2>
+    <% if(role === 'admin'){ %>
+        <a href="/sections/new">Add Section</a>
+    <% }%>
     <ul>
         <% if(!sections){ %>
             <% for(let oneSection of sections){ %>

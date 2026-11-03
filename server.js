@@ -15,7 +15,7 @@ const passUserToView = require("./middleware/pass-user-to-view.js");
 // routes Imports
 const authRouter = require("./routes/auth.routes.js");
 const indexRouter = require("./routes/index.routes.js");
-const courseRouter = require("./routes/courses.router.js");
+const courseRouter = require("./routes/courses.routes.js");
 
 
 // Middleware

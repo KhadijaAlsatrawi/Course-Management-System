@@ -1,12 +1,14 @@
 //imports
 const express = require("express");
 const router = express.Router();
+
 const isSignedIn = require('../middleware/is-signed-in')
+const isAdmin = require("../middleware/is-admin");
 
 const Course = require('../models/Course')
 const School = require('../models/School');
 const Section = require("../models/Section");
-const isAdmin = require("../middleware/is-admin");
+
 
 //routes
 //all courses
