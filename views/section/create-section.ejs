@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Section</title>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+    <h1>Create New Section</h1>
+    <h2>Course: <%= course.name %></h2>
+    <form action="/sections/<%= course._id %>" method="post">
+        <div>
+            <label for="location">Location: </label>
+            <input 
+            name="location"
+            id="location"
+            type="text"
+            required>
+        </div>
+        <div>
+            <label for="dayOfWeek">Day: </label>
+            <select name="dayOfWeek" id="dayOfWeek" required>
+                <option value="Sunday">Sunday</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+            </select>
+        </div>
+        <div>
+            <label for="time">Time: </label>
+            <input 
+            name="time"
+            id="time"
+            type="text"
+            required>
+        </div>
+        <div>
+            <label for="tutor">Tutor: </label>
+            <select name="tutor" id="tutor" required>
+                <% for (let oneTutor of tutors){ %>
+                    <option value="<%= oneTutor._id %>"><%= oneTutor.username %></option>
+                <% } %>
+            </select>
+        </div>
+
+        <button>Create Section</button>
+    </form>
+</body>
+</html>
