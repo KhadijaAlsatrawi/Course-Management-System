@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Role = require("./Role")
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -13,7 +14,8 @@ const userSchema = new mongoose.Schema({
   },
   role:{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Role'
+    ref: 'Role',
+    default: Role.find({name: 'student'})
   }
 }, {timestamps: true});
 

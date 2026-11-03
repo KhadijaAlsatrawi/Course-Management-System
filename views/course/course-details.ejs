@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details</title>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+    <h1>Course Details</h1>
+    <h3>Name: <%= course.name %></h3>
+    <p><b>School: </b><%= course.school.name %></p>
+    <p><b>Description: </b><%= course.description %></p>
+
+    <% if(role === 'admin'){ %>
+        <a href="/courses/<%= course._id %>/update">Update Course</a>
+    <% } %>
+
+    <h2>Sections</h2>
+    <ul>
+        <% if(!sections.length === 0){ %>
+            <% for(let oneSection of sections){ %>
+                <li>
+                    <b>Location: </b> <%= oneSection.location %>
+                    <b>Day: </b> <%= oneSection.dayOfWeek %>
+                    <b>Time: </b> <%= oneSection.time %>
+                    <b>Tutor: </b> <%= oneSection.tutor.username %>
+                    <b>Registerd: </b> <%= oneSection.students.length %>
+
+                    <% if(role === 'admin'){ %>
+                        <a href="/sections/<%= oneSection._id %>/update">Update Section</a>
+                    <% }else if (role === 'student') { %>
+                    <form action="/sections/<%= oneSection._id %>/register" method="post">
+                        <button>Register in section</button>
+                    </form>
+                    <% } %>
+                </li>
+            <% } %>
+        <% }else{ %>
+            <h3>No Available Sections</h3>
+        <% } %>
+    </ul>
+</body>
+</html>

@@ -7,6 +7,7 @@ const roleSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+        lowercase: true,
         minLength: 3,
         maxLength: 20
     },
