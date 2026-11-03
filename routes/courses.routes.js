@@ -62,7 +62,7 @@ router.get('/:courseId', async (req, res) => {
             sections = null
         }
         //const role = req.session.user.role
-        res.render('course/course-details.ejs', { course: foundCourse, sections: sections, role: 'admin' })
+        res.render('course/course-details.ejs', { course: foundCourse, sections: sections })
 
     } catch (err) {
         console.log('Error: ', err)

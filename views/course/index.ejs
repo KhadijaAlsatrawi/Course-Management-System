@@ -8,6 +8,11 @@
 <body>
     <%- include('../partials/navbar') %>
     <h1>Course List</h1>
+
+    <% if(user.role === 'admin'){ %>
+        <a href="/courses/new">Add new Course</a>
+    <% } %>
+
     <% if(!courses.length == 0){ %>
         <% for(let oneCourse of courses){ %>
             <div class="course-div">

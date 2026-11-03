@@ -12,7 +12,7 @@
     <p><b>School: </b><%= course.school.name %></p>
     <p><b>Description: </b><%= course.description %></p>
 
-    <% if(role === 'admin'){ %>
+    <% if(user.role === 'admin'){ %>
         <a href="/courses/<%= course._id %>/update">Update Course</a>
         <form action="/courses/<%= course._id %>?_method=DELETE" method="post">
             <button>Delete Course</button>
@@ -20,7 +20,7 @@
     <% } %>
 
     <h2>Sections</h2>
-    <% if(role === 'admin'){ %>
+    <% if(user.role === 'admin'){ %>
         <a href="/sections/new/<%= course._id %>">Add Section</a>
     <% }%>
     <ul>
@@ -33,12 +33,12 @@
                     <b>Tutor: </b> <%= oneSection.tutor.username %>
                     <b>Registerd: </b> <%= oneSection.students.length %>
 
-                    <% if(role === 'admin'){ %>
+                    <% if(user.role === 'admin'){ %>
                         <a href="/sections/<%= oneSection._id %>/update">Update Section</a>
                         <form action="/sections/<%= oneSection._id %>?_method=DELETE" method="post">
                             <button>Delete Section</button>
                         </form>
-                    <% }else if (role === 'student') { %>
+                    <% }else if (user.role === 'student') { %>
                     <form action="/sections/<%= oneSection._id %>/register" method="post">
                         <button>Register in section</button>
                     </form>
