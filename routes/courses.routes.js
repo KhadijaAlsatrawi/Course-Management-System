@@ -84,7 +84,7 @@ router.get('/:courseId/update', isSignedIn, isAdmin, async (req, res) => {
     try {
         const foundCourse = await Course.findById(req.params.courseId)
         const allSchools = await School.find()
-        res.render('course/update-course.ejs', { course: foundCourse, schools: allSchools })
+        res.render('course/update-course.ejs', { course: foundCourse, schools: allSchools,  error: null})
     } catch (err) {
         console.log('Error: ', err)
         res.redirect('/')

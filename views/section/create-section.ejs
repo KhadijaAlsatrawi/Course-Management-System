@@ -43,7 +43,11 @@
                 <% } %>
             </select>
         </div>
-
+        <div>
+        <% if(error){ %>
+            <%= error %>
+        <% } %>
+        </div>
         <button>Create Section</button>
     </form>
 </body>

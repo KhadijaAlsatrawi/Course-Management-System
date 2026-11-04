@@ -52,7 +52,11 @@
                 <% } %>
             </select>
         </div>
-
+        <div>
+        <% if(error){ %>
+            <%= error %>
+        <% } %>
+        </div>
         <button>Update Section</button>
     </form>
 </body>

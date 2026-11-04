@@ -16,14 +16,14 @@ const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/
 
 //routes
 //read
-router.get('/my-sections', isSignedIn ,async (req, res) => {
+router.get('/my-sections', isSignedIn, async (req, res) => {
     try {
         let foundSections
         if (req.session.user.role === 'tutor') {
-            foundSections = await Section.find({tutor: req.session.user._id}).populate('tutor').populate('course')
-        } else if (req.session.user.role === 'student'){
-            foundSections = await Section.find({students: req.session.user._id}).populate('tutor').populate('course')
-        } else{
+            foundSections = await Section.find({ tutor: req.session.user._id }).populate('tutor').populate('course')
+        } else if (req.session.user.role === 'student') {
+            foundSections = await Section.find({ students: req.session.user._id }).populate('tutor').populate('course')
+        } else {
             res.redirect('/')
         }
         res.render('section/index.ejs', { sections: foundSections })
@@ -38,7 +38,12 @@ router.get('/new/:courseId', isSignedIn, isAdmin, async (req, res) => {
     try {
         const foundCourse = await Course.findById(req.params.courseId)
         const toturs = await User.find({ role: await Role.find({ name: 'tutor' }) })
-        res.render('section/create-section.ejs', { course: foundCourse, tutors: toturs, days: days })
+        res.render('section/create-section.ejs', {
+            course: foundCourse,
+            tutors: toturs,
+            days: days,
+            error: null
+        })
     } catch (err) {
         console.log('Error: ', err)
         res.redirect('/')
@@ -59,11 +64,34 @@ router.post('/new/:courseId', isSignedIn, isAdmin, async (req, res) => {
                 course: req.params.courseId,
                 tutor: tutor
             })
+        }else if (!validTime){
+            return res.render('section/update-section.ejs', {
+                section: foundSection,
+                tutors: toturs,
+                days: days,
+                error: 'Time is should be in HH:MM format supporting 24 hours',
+            });
         }
         res.redirect('/courses/' + req.params.courseId)
     } catch (err) {
-        console.log('Error: ', err)
-        res.redirect('/')
+        const foundCourse = await Course.findById(req.params.courseId)
+        const toturs = await User.find({ role: await Role.find({ name: 'tutor' }) })
+        if (err.name === "ValidationError") {
+            return res.render('section/create-section.ejs', {
+                course: foundCourse,
+                tutors: toturs,
+                days: days,
+                error: err.message,
+            });
+        }
+        if (err.code === 11000) {
+            return res.render('section/create-section.ejs', {
+                course: foundCourse,
+                tutors: toturs,
+                days: days,
+                error: "Resource already exists with this name",
+            });
+        }
     }
 })
 
@@ -93,7 +121,12 @@ router.get('/:sectionId/update', isSignedIn, isAdmin, async (req, res) => {
         const foundSection = await Section.findById(req.params.sectionId).populate('course')
         const toturs = await User.find({ role: await Role.find({ name: 'tutor' }) })
         console.log(foundSection)
-        res.render('section/update-section.ejs', { section: foundSection, tutors: toturs, days: days })
+        res.render('section/update-section.ejs', {
+            section: foundSection,
+            tutors: toturs,
+            days: days,
+            error: null
+        })
     } catch (err) {
         console.log('Error: ', err)
         res.redirect('/')
@@ -115,9 +148,33 @@ router.put('/:sectionId', isSignedIn, isAdmin, async (req, res) => {
             })
             res.redirect('/courses/' + createdSection.course)
         }
+        else if (!validTime){
+            return res.render('section/update-section.ejs', {
+                section: foundSection,
+                tutors: toturs,
+                days: days,
+                error: 'Time is should be in HH:MM format supporting 24 hours',
+            });
+        }
     } catch (err) {
-        console.log('Error: ', err)
-        res.redirect('/')
+        const foundSection = await Section.findById(req.params.sectionId).populate('course')
+        const toturs = await User.find({ role: await Role.find({ name: 'tutor' }) })
+        if (err.name === "ValidationError") {
+            return res.render('section/update-section.ejs', {
+                section: foundSection,
+                tutors: toturs,
+                days: days,
+                error: err.message,
+            });
+        }
+        if (err.code === 11000) {
+            return res.render('section/update-section.ejs', {
+                section: foundSection,
+                tutors: toturs,
+                days: days,
+                error: "Resource already exists with this name",
+            });
+        }
     }
 })
 
