@@ -44,7 +44,7 @@
             <label for="tutor">Tutor: </label>
             <select name="tutor" id="tutor" required>
                 <% for (let oneTutor of tutors){ %>
-                    <% if(oneTutor === section.tutor){ %>
+                    <% if(String (oneTutor._id) === String (section.tutor)){ %>
                         <option value="<%= oneTutor._id %>" selected><%= oneTutor.username %></option>
                     <% }else{ %>
                         <option value="<%= oneTutor._id %>"><%= oneTutor.username %></option>
@@ -53,7 +53,7 @@
             </select>
         </div>
 
-        <button>Create Section</button>
+        <button>Update Section</button>
     </form>
 </body>
 </html>

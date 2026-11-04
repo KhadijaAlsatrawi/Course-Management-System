@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update User</title>
+  </head>
+  <body>
+    <%- include('../partials/navbar') %>
+    <h1>Update <%= user.username %></h1>
+    <form action="/user/<%= user._id %>?_method=PUT" method="post">
+      <label for="role">Role: </label>
+      <select name="role" id="role">
+        <% for(oneRole of roles){ %>
+            <% if(String (oneRole._id) === String (user.role)){ %>
+                <option value="<%= oneRole._id %>" selected><%= oneRole.name %></option>
+            <% }else{ %>
+                <option value="<%= oneRole._id %>"><%= oneRole.name %></option>
+            <% } %>
+        <% } %>
+      </select>
+      <button type="submit">Update User </button>
+    </form>
+  </body>
+</html>

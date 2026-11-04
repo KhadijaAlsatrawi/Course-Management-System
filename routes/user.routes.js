@@ -28,7 +28,7 @@ router.get('/new', isSignedIn, isAdmin, async (req, res) => {
 
 router.post('/', isSignedIn, isAdmin, async (req, res) => {
     try {
-        const {username, password, confirmPassword, role} = req.body
+        const { username, password, confirmPassword, role } = req.body
 
         const userInDatabase = await User.findOne({ username: username });
         if (userInDatabase) {
@@ -56,16 +56,54 @@ router.post('/', isSignedIn, isAdmin, async (req, res) => {
 
 //update
 router.get('/:userId/update', isSignedIn, isAdmin, async (req, res) => {
-
+    try {
+        const allRoles = await Role.find()
+        const foundUser = await User.findById(req.params.userId)
+        res.render('user/update-user.ejs', { user: foundUser, roles: allRoles })
+    } catch (err) {
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
 })
 
 router.put('/:userId', isSignedIn, isAdmin, async (req, res) => {
-
+    try {
+        const {role} = req.body
+        const user = await User.findByIdAndUpdate(req.params.userId,{
+            role: role
+        });
+        res.redirect("/user/");
+    } catch (err) {
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
 })
 
 //delete
 router.delete('/:userId', isSignedIn, isAdmin, async (req, res) => {
-
+    try {
+        await User.findByIdAndDelete(req.params.userId)
+        res.redirect("/user/");
+    } catch (err) {
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
 })
+
+//change password
+router.get('/:userId/change-password', isSignedIn, async (req, res) => {
+    if (String(req.session.user._id) === req.params.userId) {
+        try {
+            const foundUser = await User.findById(req.params.userId)
+            res.render('user/change-password.ejs', { user: foundUser })
+        } catch (err) {
+            console.log('Error: ', err)
+            res.redirect('/')
+        }
+    }else{
+        res.redirect('/')
+    }
+})
+
 
 module.exports = router
