@@ -145,11 +145,14 @@ router.get('/:userId/change-password', isSignedIn, async (req, res) => {
 })
 
 router.put('/:userId/change-password', isSignedIn, async (req, res) => {
+    const foundUser = await User.findById(req.params.userId)
     try {
         const { password, confirmPassword } = req.body
 
         if (password !== confirmPassword) {
-            return res.send("Password and Confirm Password must match");
+            return res.render('user/change-password.ejs', { 
+                user: foundUser,
+                error:"Password and Confirm Password must match"});
         }
         const hashedPassword = bcrypt.hashSync(password, 10);
 

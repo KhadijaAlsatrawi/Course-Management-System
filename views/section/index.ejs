@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Sections</title>
+    <script defer src="/js/search.js"></script>
 </head>
 <body>
     <%- include('../partials/navbar') %>
     <h1>My Sections</h1>
     <% if(!sections.length == 0){ %>
+        <div>
+            <input id="search" type="text" placeholder="Search course name">
+        </div>
         <table class="display-table">
             <tr class="table-header">
                 <th>Course</th>

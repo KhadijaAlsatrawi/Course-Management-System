@@ -53,3 +53,6 @@
 Regex: 
 - https://stackoverflow.com/questions/14892740/regular-expression-for-hhmmss
 - https://regex101.com/
+
+Search:
+- https://www.w3schools.com/howto/howto_js_filter_table.asp
