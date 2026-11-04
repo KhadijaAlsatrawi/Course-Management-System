@@ -24,8 +24,21 @@ router.get('/new/:courseId', isSignedIn, isAdmin, async (req, res)=>{
     }
 })
 
-router.post('/:courseId', isSignedIn, isAdmin, async (req, res)=>{
-
+router.post('/new/:courseId', isSignedIn, isAdmin, async (req, res)=>{
+    try{
+        const{location, dayOfWeek,time,tutor} = req.body
+        const createdSection = await Section.create({
+            location: location,
+            dayOfWeek: dayOfWeek,
+            time: time,
+            course: req.params.courseId,
+            tutor: tutor
+        })
+        res.redirect('/courses/'+req.params.courseId)
+    }catch(err){
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
 })
 
 router.post('/:sectionId/register', isSignedIn, isStudent, async (req, res)=>{
