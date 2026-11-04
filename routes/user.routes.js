@@ -105,5 +105,25 @@ router.get('/:userId/change-password', isSignedIn, async (req, res) => {
     }
 })
 
+router.put('/:userId/change-password', isSignedIn, isAdmin, async (req, res) => {
+    try {
+        const {password, confirmPassword} = req.body
+
+        if (password !== confirmPassword) {
+            return res.send("Password and Confirm Password must match");
+        }
+        const hashedPassword = bcrypt.hashSync(password, 10);
+
+        const user = await User.findByIdAndUpdate(req.params.userId,{
+            username: username,
+            password: hashedPassword,
+        });
+
+        res.redirect("/user/");
+    } catch (err) {
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
+})
 
 module.exports = router
