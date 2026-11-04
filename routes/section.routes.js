@@ -32,7 +32,7 @@ router.post('/new/:courseId', isSignedIn, isAdmin, async (req, res) => {
         const { location, dayOfWeek, time, tutor } = req.body
         //validation
         const validDay = days.find(oneDay => oneDay === dayOfWeek)
-        const validTime = time.matches(timeRegex)
+        const validTime = time.match(timeRegex)
         if (validDay && validTime) {
             const createdSection = await Section.create({
                 location: location,
@@ -51,7 +51,18 @@ router.post('/new/:courseId', isSignedIn, isAdmin, async (req, res) => {
 
 router.post('/:sectionId/register', isSignedIn, isStudent, async (req, res) => {
     try {
-
+        const foundSection = await Section.findById(req.params.sectionId)
+        const registerd = foundSection.students.find(oneStudent=>oneStudent.equals(req.session.user._id))
+        if (registerd) {
+            await Section.findByIdAndUpdate(req.params.sectionId,
+                { $pull: { students: req.session.user._id } }
+            )
+        } else {
+            await Section.findByIdAndUpdate(req.params.sectionId,
+                { $push: { students: req.session.user._id } }
+            )
+        }
+        res.redirect('/courses/' + foundSection.course)
     } catch (err) {
         console.log('Error: ', err)
         res.redirect('/')
@@ -76,7 +87,7 @@ router.put('/:sectionId', isSignedIn, isAdmin, async (req, res) => {
         const { location, dayOfWeek, time, tutor } = req.body
         //validation
         const validDay = days.find(oneDay => oneDay === dayOfWeek)
-        const validTime = time.matches(timeRegex)
+        const validTime = time.match(timeRegex)
         if (validDay && validTime) {
             const createdSection = await Section.findByIdAndUpdate(req.params.sectionId, {
                 location: location,
