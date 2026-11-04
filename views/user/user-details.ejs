@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+    <h1>User Details</h1>
+    <p><b>Username: </b><%= user.username %></p>
+    <p><b>Role: </b><%= user.role.name %></p>
+    <a href="/user/<%= user._id %>/change-password">Change Password</a>
+</body>
+</html>

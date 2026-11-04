@@ -115,13 +115,27 @@ router.put('/:userId/change-password', isSignedIn, async (req, res) => {
         const hashedPassword = bcrypt.hashSync(password, 10);
 
         const user = await User.findByIdAndUpdate(req.params.userId,{
-            username: username,
-            password: hashedPassword,
+            password: hashedPassword
         });
 
-        res.redirect("/user/");
+        res.redirect("/user/"+user._id);
     } catch (err) {
         console.log('Error: ', err)
+        res.redirect('/')
+    }
+})
+
+//read one (view own account)
+router.get('/:userId', isSignedIn, async (req, res) => {
+    if (String(req.session.user._id) === req.params.userId) {
+        try {
+            const foundUser = await User.findById(req.params.userId).populate('role')
+            res.render('user/user-details.ejs', { user: foundUser })
+        } catch (err) {
+            console.log('Error: ', err)
+            res.redirect('/')
+        }
+    }else{
         res.redirect('/')
     }
 })

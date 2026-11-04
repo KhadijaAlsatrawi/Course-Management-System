@@ -9,6 +9,7 @@
         <% }else{ %>
             <a href="/sections/my-sections">My Sections</a>
         <% } %>
+    <a href="/user/<%= user._id %>"><%= user.username %></a>
     <a href="/auth/sign-out">Logout</a>
     <% } else{ %>
     <a href="/auth/sign-up">Sign up</a>
