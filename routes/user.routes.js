@@ -105,7 +105,7 @@ router.get('/:userId/change-password', isSignedIn, async (req, res) => {
     }
 })
 
-router.put('/:userId/change-password', isSignedIn, isAdmin, async (req, res) => {
+router.put('/:userId/change-password', isSignedIn, async (req, res) => {
     try {
         const {password, confirmPassword} = req.body
 

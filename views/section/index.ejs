@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Sections</title>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+    <h1>My Sections</h1>
+    <ul>
+        <% if(!sections.length == 0){ %>
+            <% for(let oneSection of sections){ %>
+                <li>
+                    <b>Course: </b> <%= oneSection.course.name %>
+                    <b>Location: </b> <%= oneSection.location %>
+                    <b>Day: </b> <%= oneSection.dayOfWeek %>
+                    <b>Time: </b> <%= oneSection.time %>
+                    <b>Tutor: </b> <%= oneSection.tutor.username %>
+                    <b>Registerd: </b> <%= oneSection.students.length %>
+                </li>
+            <% } %>
+        <% }else{ %>
+            <h3>No Available Sections</h3>
+        <% } %>
+    </ul>
+</body>
+</html>

@@ -15,6 +15,24 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/
 
 //routes
+//read
+router.get('/my-sections', isSignedIn ,async (req, res) => {
+    try {
+        let foundSections
+        if (req.session.user.role === 'tutor') {
+            foundSections = await Section.find({tutor: req.session.user._id}).populate('tutor').populate('course')
+        } else if (req.session.user.role === 'student'){
+            foundSections = await Section.find({students: req.session.user._id}).populate('tutor').populate('course')
+        } else{
+            res.redirect('/')
+        }
+        res.render('section/index.ejs', { sections: foundSections })
+    } catch (err) {
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
+})
+
 //create
 router.get('/new/:courseId', isSignedIn, isAdmin, async (req, res) => {
     try {
