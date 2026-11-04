@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New User</title>
+  </head>
+  <body>
+    <%- include('../partials/navbar') %>
+    <h1>Create a new User</h1>
+    <form action="/user" method="post">
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" />
+
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" />
+
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" name="confirmPassword" id="confirmPassword" />
+
+      <label for="role">Role: </label>
+      <select name="role" id="role">
+        <% for(oneRole of roles){ %>
+            <option value="<%= oneRole._id %>"><%= oneRole.name %></option>
+        <% } %>
+      </select>
+
+      <button type="submit">Create User </button>
+    </form>
+  </body>
+</html>

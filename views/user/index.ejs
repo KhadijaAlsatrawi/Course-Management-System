@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+    <h1>User List</h1>
+    <a href="/user/new">Create New User</a>
+    <% for(let oneUser of users){ %>
+        <p><b>Username: </b><%= oneUser.username %></p>
+        <p><b>Role: </b><%= oneUser.role.name %></p>
+        <a href="/user/<%= oneUser._id %>/update">Update User</a>
+        <form action="/user/<%= oneUser._id %>?_method?=DELETE">
+            <button>Delete User</button>
+        </form>
+    <% } %>
+</body>
+</html>
