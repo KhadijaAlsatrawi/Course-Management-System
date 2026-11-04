@@ -46,13 +46,18 @@
                             </form>
                         <% }else if (user.role === 'student') { %>
                             <% const registerd = oneSection.students.find(oneStudent=>oneStudent.equals(user._id)) %>
-                            <form action="/sections/<%= oneSection._id %>/register" method="post">
-                                <% if(registerd){ %>
+                            <% if(registerd){ %>
+                                <form action="/sections/<%= oneSection._id %>/unregister" method="post">
                                     <button>Unregister from section</button>
-                                <% }else{ %>
+                                </form>
+                            <% }else{ %>
+                                <form action="/sections/<%= oneSection._id %>/register" method="post"></form>
                                     <button>Register in section</button>
-                                <% } %>
-                            </form>
+                                </form>
+                            <% } %>
+                            <div>
+                                <%= error %>
+                            </div>
                         <% } %>
                     </td>
             <% } %>

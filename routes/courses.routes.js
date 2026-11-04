@@ -72,7 +72,7 @@ router.get('/:courseId', async (req, res) => {
         } catch (err) {
             sections = null
         }
-        res.render('course/course-details.ejs', { course: foundCourse, sections: sections })
+        res.render('course/course-details.ejs', { course: foundCourse, sections: sections, error: null })
     } catch (err) {
         console.log('Error: ', err)
         res.redirect('/')

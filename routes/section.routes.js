@@ -64,7 +64,7 @@ router.post('/new/:courseId', isSignedIn, isAdmin, async (req, res) => {
                 course: req.params.courseId,
                 tutor: tutor
             })
-        }else if (!validTime){
+        } else if (!validTime) {
             return res.render('section/update-section.ejs', {
                 section: foundSection,
                 tutors: toturs,
@@ -98,15 +98,68 @@ router.post('/new/:courseId', isSignedIn, isAdmin, async (req, res) => {
 router.post('/:sectionId/register', isSignedIn, isStudent, async (req, res) => {
     try {
         const foundSection = await Section.findById(req.params.sectionId)
+        const courseSections = await Section.find({ course: foundSection.course })
+
+        const foundCourse = await Course.findById(req.params.courseId).populate('school')
+        let sections
+        try {
+            sections = await Section.find({ course: req.params.courseId }).populate('tutor')
+        } catch (err) {
+            sections = null
+        }
+
+        for (let oneSection of courseSections) {
+            if (oneSection.students.find(oneStudent => oneStudent.equals(req.session.user._id))) {
+                return res.render('course/course-details.ejs', {
+                    course: foundCourse,
+                    sections: sections,
+                    error: "you are registed in this course"
+                })
+            }
+        }
+
+        const registerd = foundSection.students.find(oneStudent => oneStudent.equals(req.session.user._id))
+        if (!registerd) {
+            await Section.findByIdAndUpdate(req.params.sectionId,
+                { $push: { students: req.session.user._id } }
+            )
+        } else {
+            return res.render('course/course-details.ejs', {
+                course: foundCourse,
+                sections: sections,
+                error: "you are registed in this section"
+            })
+        }
+        res.redirect('/courses/' + foundSection.course)
+    } catch (err) {
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
+})
+
+router.post('/:sectionId/unregister', isSignedIn, isStudent, async (req, res) => {
+    try {
+        const foundSection = await Section.findById(req.params.sectionId)
+
+        const foundCourse = await Course.findById(req.params.courseId).populate('school')
+        let sections
+        try {
+            sections = await Section.find({ course: req.params.courseId }).populate('tutor')
+        } catch (err) {
+            sections = null
+        }
+
         const registerd = foundSection.students.find(oneStudent => oneStudent.equals(req.session.user._id))
         if (registerd) {
             await Section.findByIdAndUpdate(req.params.sectionId,
                 { $pull: { students: req.session.user._id } }
             )
         } else {
-            await Section.findByIdAndUpdate(req.params.sectionId,
-                { $push: { students: req.session.user._id } }
-            )
+            return res.render('course/course-details.ejs', {
+                course: foundCourse,
+                sections: sections,
+                error: "you are not registed in this section"
+            })
         }
         res.redirect('/courses/' + foundSection.course)
     } catch (err) {
@@ -148,7 +201,7 @@ router.put('/:sectionId', isSignedIn, isAdmin, async (req, res) => {
             })
             res.redirect('/courses/' + createdSection.course)
         }
-        else if (!validTime){
+        else if (!validTime) {
             return res.render('section/update-section.ejs', {
                 section: foundSection,
                 tutors: toturs,
