@@ -14,13 +14,21 @@
     <% } %>
 
     <% if(!courses.length == 0){ %>
+        <table class="display-table">
+            <tr class="table-header">
+                <th>Course Name</th>
+                <th>School</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
         <% for(let oneCourse of courses){ %>
-            <div class="course-div">
-                <h3><%= oneCourse.name %></h3>
-                <p><b>School: </b> <%= oneCourse.school.name %></p>
-                <p><b>Description: </b> <%= oneCourse.description %></p>
-                <a href="/courses/<%= oneCourse._id %>">See Details</a>
-            </div>
+            <tr class="table-row">
+                <td><%= oneCourse.name %></td>
+                <td><%= oneCourse.school.name %></td>
+                <td><%= oneCourse.description %></td>
+                <td><a href="/courses/<%= oneCourse._id %>">See Details</a></td>
+            </tr>
+        </table>
         <% } %>
     <% }else{ %>
         <h2>No Available Courses</h2>

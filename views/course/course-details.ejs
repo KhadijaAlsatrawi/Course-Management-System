@@ -9,8 +9,8 @@
     <%- include('../partials/navbar') %>
     <h1>Course Details</h1>
     <h3>Name: <%= course.name %></h3>
-    <p><b>School: </b><%= course.school.name %></p>
-    <p><b>Description: </b><%= course.description %></p>
+    <p><td>School: </td><%= course.school.name %></p>
+    <p><td>Description: </td><%= course.description %></p>
 
     <% if(user.role === 'admin'){ %>
         <a href="/courses/<%= course._id %>/update">Update Course</a>
@@ -23,36 +23,42 @@
     <% if(user.role === 'admin'){ %>
         <a href="/sections/new/<%= course._id %>">Add Section</a>
     <% }%>
-    <ul>
         <% if(!sections.length == 0){ %>
+            <table class="display-table">
+            <tr class="table-header">
+                <th>Location</th>
+                <th>Day</th>
+                <th>Time</th>
+                <th>Tutor</th>
+                <th>Actions</th>
+            </tr>
             <% for(let oneSection of sections){ %>
-                <li>
-                    <b>Location: </b> <%= oneSection.location %>
-                    <b>Day: </b> <%= oneSection.dayOfWeek %>
-                    <b>Time: </b> <%= oneSection.time %>
-                    <b>Tutor: </b> <%= oneSection.tutor.username %>
-                    <b>Registerd: </b> <%= oneSection.students.length %>
-
-                    <% if(user.role === 'admin'){ %>
-                        <a href="/sections/<%= oneSection._id %>/update">Update Section</a>
-                        <form action="/sections/<%= oneSection._id %>?_method=DELETE" method="post">
-                            <button>Delete Section</button>
-                        </form>
-                    <% }else if (user.role === 'student') { %>
-                        <% const registerd = oneSection.students.find(oneStudent=>oneStudent.equals(user._id)) %>
-                        <form action="/sections/<%= oneSection._id %>/register" method="post">
-                            <% if(registerd){ %>
-                                <button>Unregister from section</button>
-                            <% }else{ %>
-                                <button>Register in section</button>
-                            <% } %>
-                        </form>
-                    <% } %>
-                </li>
+                <tr class="table-row">
+                    <td><%= oneSection.location %></td>
+                    <td><%= oneSection.dayOfWeek %></td>
+                    <td><%= oneSection.time %></td>
+                    <td><%= oneSection.tutor.username %></td>
+                    <td>
+                        <% if(user.role === 'admin'){ %>
+                            <a href="/sections/<%= oneSection._id %>/update">Update Section</a>
+                            <form action="/sections/<%= oneSection._id %>?_method=DELETE" method="post">
+                                <button>Delete Section</button>
+                            </form>
+                        <% }else if (user.role === 'student') { %>
+                            <% const registerd = oneSection.students.find(oneStudent=>oneStudent.equals(user._id)) %>
+                            <form action="/sections/<%= oneSection._id %>/register" method="post">
+                                <% if(registerd){ %>
+                                    <button>Unregister from section</button>
+                                <% }else{ %>
+                                    <button>Register in section</button>
+                                <% } %>
+                            </form>
+                        <% } %>
+                    </td>
             <% } %>
+            
         <% }else{ %>
             <h3>No Available Sections</h3>
         <% } %>
-    </ul>
 </body>
 </html>

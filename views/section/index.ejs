@@ -8,21 +8,28 @@
 <body>
     <%- include('../partials/navbar') %>
     <h1>My Sections</h1>
-    <ul>
-        <% if(!sections.length == 0){ %>
+    <% if(!sections.length == 0){ %>
+        <table class="display-table">
+            <tr class="table-header">
+                <th>Course</th>
+                <th>Location</th>
+                <th>Day</th>
+                <th>Time</th>
+                <th>Tutor</th>
+            </tr>
             <% for(let oneSection of sections){ %>
-                <li>
-                    <b>Course: </b> <%= oneSection.course.name %>
-                    <b>Location: </b> <%= oneSection.location %>
-                    <b>Day: </b> <%= oneSection.dayOfWeek %>
-                    <b>Time: </b> <%= oneSection.time %>
-                    <b>Tutor: </b> <%= oneSection.tutor.username %>
-                    <b>Registerd: </b> <%= oneSection.students.length %>
-                </li>
+                <tr class="table-row">
+                    <td><%= oneSection.course.name %></td>
+                    <td><%= oneSection.location %></td>
+                    <td><%= oneSection.dayOfWeek %></td>
+                    <td><%= oneSection.time %></td>
+                    <td><%= oneSection.tutor.username %></td>
+                </tr>
             <% } %>
-        <% }else{ %>
-            <h3>No Available Sections</h3>
-        <% } %>
-    </ul>
+        </table>
+    <% }else{ %>
+        <h3>No Available Sections</h3>
+    <% } %>
+
 </body>
 </html>

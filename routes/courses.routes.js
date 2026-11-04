@@ -57,7 +57,7 @@ router.get('/:courseId', async (req, res) => {
         const foundCourse = await Course.findById(req.params.courseId).populate('school')
         let sections
         try {
-            sections = await Section.find({ course: req.params.courseId })
+            sections = await Section.find({ course: req.params.courseId }).populate('tutor')
         } catch (err) {
             sections = null
         }
