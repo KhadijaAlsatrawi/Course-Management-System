@@ -38,7 +38,10 @@
                 <% } %>
             </select>
         </div>
-
+        <% if(error){ %>
+            <%= error %>
+        <% } %>
+        </div>
         <button>Update Course</button>
     </form>
 </body>

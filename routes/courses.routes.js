@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
 router.get('/new', isSignedIn, isAdmin, async (req, res) => {
     try {
         const allSchools = await School.find()
-        res.render('course/create-course.ejs', { schools: allSchools })
+        res.render('course/create-course.ejs', { schools: allSchools, error: null })
 
     } catch (err) {
         console.log('Error: ', err)
@@ -46,8 +46,19 @@ router.post('/', isSignedIn, isAdmin, async (req, res) => {
         res.redirect('/courses')
 
     } catch (err) {
-        console.log('Error: ', err)
-        res.redirect('/')
+        const allSchools = await School.find()
+        if (err.name === "ValidationError") {
+            return res.render('course/create-course.ejs', {
+                schools: allSchools,
+                error: err.message,
+            });
+        }
+        if (err.code === 11000) {
+            return res.render('course/create-course.ejs', {
+                schools: allSchools,
+                error: "Resource already exists with this name",
+            });
+        }
     }
 })
 
@@ -91,8 +102,22 @@ router.put('/:courseId', isSignedIn, isAdmin, async (req, res) => {
 
         res.redirect('/courses/' + updatedCourse._id)
     } catch (err) {
-        console.log('Error: ', err)
-        res.redirect('/')
+        const foundCourse = await Course.findById(req.params.courseId)
+        const allSchools = await School.find()
+        if (err.name === "ValidationError") {
+            return res.render('course/update-course.ejs', { 
+                course: foundCourse, 
+                schools: allSchools,
+                error: err.message,
+            });
+        }
+        if (err.code === 11000) {
+            return res.render('course/update-course.ejs', { 
+                course: foundCourse, 
+                schools: allSchools,
+                error: "Resource already exists with this name",
+            });
+        }
     }
 })
 

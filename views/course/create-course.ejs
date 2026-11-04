@@ -33,7 +33,11 @@
                 <% } %>
             </select>
         </div>
-
+        <div>
+        <% if(error){ %>
+            <%= error %>
+        <% } %>
+        </div>
         <button>Create Course</button>
     </form>
 </body>
