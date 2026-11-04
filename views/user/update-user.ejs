@@ -19,6 +19,11 @@
             <% } %>
         <% } %>
       </select>
+      <div>
+        <% if(error){ %>
+            <%= error %>
+        <% } %>
+        </div>
       <button type="submit">Update User </button>
     </form>
   </body>

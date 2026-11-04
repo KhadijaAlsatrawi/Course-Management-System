@@ -24,7 +24,11 @@
             <option value="<%= oneRole._id %>"><%= oneRole.name %></option>
         <% } %>
       </select>
-
+      <div>
+        <% if(error){ %>
+            <%= error %>
+        <% } %>
+        </div>
       <button type="submit">Create User </button>
     </form>
   </body>

@@ -7,7 +7,7 @@ const Role = require("../models/Role.js");
 
 // Sign up routes
 router.get("/sign-up", (req, res) => {
-  res.render("auth/sign-up.ejs");
+  res.render("auth/sign-up.ejs", {error: null});
 });
 
 router.post("/sign-up", async (req, res) => {
@@ -15,11 +15,11 @@ router.post("/sign-up", async (req, res) => {
 
   const userInDatabase = await User.findOne({ username: username });
   if (userInDatabase) {
-    return res.send("Username already taken.");
+    return res.render('auth/sign-up.ejs', {error: "Username already taken."});
   }
 
   if (password !== confirmPassword) {
-    return res.send("Password and Confirm Password must match");
+    return res.render('auth/sign-up.ejs', {error: "Password and Confirm Password must match"});
   }
 
   const hashedPassword = bcrypt.hashSync(password, 10);
@@ -36,7 +36,7 @@ router.post("/sign-up", async (req, res) => {
 
 // Sign in routes
 router.get("/sign-in", (req, res) => {
-  res.render("auth/sign-in.ejs");
+  res.render("auth/sign-in.ejs", {error: null});
 });
 
 
@@ -45,7 +45,7 @@ router.post("/sign-in", async (req, res) => {
   // First, get the user from the database
   const userInDatabase = await User.findOne({ username: req.body.username }).populate('role');
   if (!userInDatabase) {
-    return res.send("Login failed. Please try again.");
+     res.render("auth/sign-in.ejs", {error: "Login failed. Please try again."});
   }
 
   // There is a user! Time to test their password with bcrypt
@@ -54,7 +54,7 @@ router.post("/sign-in", async (req, res) => {
     userInDatabase.password
   );
   if (!validPassword) {
-    return res.send("Login failed. Please try again.");
+     res.render("auth/sign-in.ejs", {error: "Login failed. Please try again."});
   }
 
   // There is a user AND they had the correct password. Time to make a session!
