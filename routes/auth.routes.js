@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User.js");
 const bcrypt = require("bcrypt");
+const Role = require("../models/Role.js");
 
 
 // Sign up routes
@@ -10,21 +11,24 @@ router.get("/sign-up", (req, res) => {
 });
 
 router.post("/sign-up", async (req, res) => {
-  const userInDatabase = await User.findOne({ username: req.body.username });
+  const { username, password, confirmPassword} = req.body
+
+  const userInDatabase = await User.findOne({ username: username });
   if (userInDatabase) {
     return res.send("Username already taken.");
   }
 
-  if (req.body.password !== req.body.confirmPassword) {
+  if (password !== confirmPassword) {
     return res.send("Password and Confirm Password must match");
   }
 
-  const hashedPassword = bcrypt.hashSync(req.body.password, 10);
-  req.body.password = hashedPassword;
+  const hashedPassword = bcrypt.hashSync(password, 10);
 
-  // validation logic
-
-  const user = await User.create(req.body);
+  const user = await User.create({
+    username: username,
+    password: hashedPassword,
+    role: await Role.find({name: 'student'})
+  });
   res.redirect("/auth/sign-in");
 });
 
