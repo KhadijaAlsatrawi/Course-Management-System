@@ -13,7 +13,7 @@
         <p><b>Username: </b><%= oneUser.username %></p>
         <p><b>Role: </b><%= oneUser.role.name %></p>
         <a href="/user/<%= oneUser._id %>/update">Update User</a>
-        <form action="/user/<%= oneUser._id %>?_method?=DELETE">
+        <form action="/user/<%= oneUser._id %>?_method=DELETE" method="post">
             <button>Delete User</button>
         </form>
     <% } %>
