@@ -5,6 +5,9 @@
     <% if (user){ %>
         <% if (user.role === 'admin'){ %>
             <a href="/courses/new">Add new Course</a>
+            <a href="/user">User List</a>
+        <% }else{ %>
+            <a href="/sections/my-sections">My Sections</a>
         <% } %>
     <a href="/auth/sign-out">Logout</a>
     <% } else{ %>
