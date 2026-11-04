@@ -18,6 +18,7 @@ const indexRouter = require("./routes/index.routes.js");
 const courseRouter = require("./routes/courses.routes.js");
 const sectionRouter = require("./routes/section.routes.js");
 const userRouter = require("./routes/user.routes.js");
+const adminRouter = require("./routes/admin.routes.js");
 
 
 // Middleware
@@ -51,6 +52,7 @@ app.use('/', indexRouter)
 app.use('/courses', courseRouter)
 app.use('/sections', sectionRouter)
 app.use('/user', userRouter)
+app.use('/admin', adminRouter)
 
 
 // connect to database and listen on Port 3000

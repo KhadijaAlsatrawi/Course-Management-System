@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+    <h1>Admin Dashboard</h1>
+
+    <div id="links">
+        <a href="/courses/new">Add new Course</a>
+        <a href="/user">User List</a>
+    </div>
+
+    <div id="stat">
+        <div>
+            Current number of Users: <%= users.length %> <br>
+            <%= admins.length %> Admins <br>
+            <%= tutors.length %> Tutors <br>
+            <%= students.length %> Strudents <br>
+        </div>
+        <div>
+            Current number of Courses: 
+            
+        </div>
+    </div>
+</body>
+</html>

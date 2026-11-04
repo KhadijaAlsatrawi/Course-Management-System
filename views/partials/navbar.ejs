@@ -4,8 +4,7 @@
     <a href="/courses">Courses</a>
     <% if (user){ %>
         <% if (user.role === 'admin'){ %>
-            <a href="/courses/new">Add new Course</a>
-            <a href="/user">User List</a>
+            <a href="/admin">Admin Dashboard</a>
         <% }else{ %>
             <a href="/sections/my-sections">My Sections</a>
         <% } %>
@@ -14,7 +13,6 @@
     <% } else{ %>
     <a href="/auth/sign-up">Sign up</a>
     <a href="/auth/sign-in">Login</a>
-
     <% } %>
     
 </nav>
