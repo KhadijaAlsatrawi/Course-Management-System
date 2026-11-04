@@ -95,7 +95,9 @@ router.put('/:sectionId', isSignedIn, isAdmin, async (req, res) => {
 //delete
 router.delete('/:sectionId', isSignedIn, isAdmin, async (req, res) => {
     try {
-
+        const foundSection = await Section.findById(req.params.sectionId)
+        await Section.findByIdAndDelete(req.params.sectionId)
+        res.redirect('/courses/' + foundSection.course)
     } catch (err) {
         console.log('Error: ', err)
         res.redirect('/')

@@ -24,7 +24,7 @@
         <a href="/sections/new/<%= course._id %>">Add Section</a>
     <% }%>
     <ul>
-        <% if(sections){ %>
+        <% if(!sections.length === 0){ %>
             <% for(let oneSection of sections){ %>
                 <li>
                     <b>Location: </b> <%= oneSection.location %>
