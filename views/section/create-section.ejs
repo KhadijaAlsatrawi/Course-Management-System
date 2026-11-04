@@ -21,13 +21,9 @@
         <div>
             <label for="dayOfWeek">Day: </label>
             <select name="dayOfWeek" id="dayOfWeek" required>
-                <option value="Sunday">Sunday</option>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
+                <% for(let i=0; i < days.length; i++){ %>
+                    <option value="<%= days[i] %>"><%= days[i] %></option>
+                <% } %>
             </select>
         </div>
         <div>
@@ -36,7 +32,8 @@
             name="time"
             id="time"
             type="text"
-            required>
+            required
+            placeholder="HH:MM">
         </div>
         <div>
             <label for="tutor">Tutor: </label>

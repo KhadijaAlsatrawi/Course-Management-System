@@ -50,3 +50,6 @@
 
 
 ## Credits (edited)
+Regex: 
+- https://stackoverflow.com/questions/14892740/regular-expression-for-hhmmss
+- https://regex101.com/
