@@ -1,18 +1,26 @@
-<nav>
-    
-    <a href="/">Homepage</a>
-    <a href="/courses">Courses</a>
+<link rel="stylesheet" href="/css/custom.css">
+
+<nav class="navbar bg-primary navbar-fixed-top">
+    <div class="container nav">
+        <div class="nav navbar-left">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Homepage</a>
+        </div>
+    <a class="nav-link" href="/courses">Courses</a>
     <% if (user){ %>
         <% if (user.role === 'admin'){ %>
-            <a href="/admin">Admin Dashboard</a>
+            <a class="nav-link" href="/admin">Admin Dashboard</a>
         <% }else{ %>
-            <a href="/sections/my-sections">My Sections</a>
+            <a class="nav-link" href="/sections/my-sections">My Sections</a>
         <% } %>
-    <a href="/user/<%= user._id %>"><%= user.username %></a>
-    <a href="/auth/sign-out">Logout</a>
+    </div>
+    <div class="nav">
+        <a class="nav-link"href="/user/<%= user._id %>"><%= user.username %></a>
+        <a class="nav-link" href="/auth/sign-out">Logout</a>
+    </div>
     <% } else{ %>
-    <a href="/auth/sign-up">Sign up</a>
-    <a href="/auth/sign-in">Login</a>
+    <a class="nav-link" href="/auth/sign-up">Sign up</a>
+    <a class="nav-link" href="/auth/sign-in">Login</a>
     <% } %>
-    
+    </div>
 </nav>

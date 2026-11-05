@@ -7,6 +7,7 @@ const session = require('express-session');
 const methodOverride = require('method-override')
 const {MongoStore} = require("connect-mongo");
 const connectToDB = require('./db.js')
+const path = require('path');
 
 // middleware imports
 const isSignedIn = require("./middleware/is-signed-in.js");
@@ -44,7 +45,9 @@ app.use(
   })
 );
 app.use(passUserToView)
-
+app.use('/bootstrap-js', express.static(
+  path.join(__dirname, 'node_modules/bootstrap/dist/js')
+));
 
 // Routes go here
 app.use('/auth', authRouter)

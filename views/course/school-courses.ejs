@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <script defer src="/js/search.js"></script>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+    <div class="container pt-5">
+    <h1 class="page-header"><%= school.name %> Course</h1>
+
+    <% if(user.role === 'admin'){ %>
+        <a href="/courses/new">Add new Course</a>
+    <% } %>
+    <% if(!courses.length == 0){ %>
+        <div>
+            <input id="search" type="text" placeholder="Search course name">
+        </div>
+        <table class="display-table">
+            <tr class="table-header">
+                <th>Course Name</th>
+                <th>School</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        <% for(let oneCourse of courses){ %>
+            <tr class="table-row">
+                <td><%= oneCourse.name %></td>
+                <td><%= oneCourse.school.name %></td>
+                <td><%= oneCourse.description %></td>
+                <td><a href="/courses/<%= oneCourse._id %>">See Details</a></td>
+            </tr>
+        </table>
+        <% } %>
+    <% }else{ %>
+        <h2>No Available Courses</h2>
+    <% } %>
+    </div>
+</body>
+</html>

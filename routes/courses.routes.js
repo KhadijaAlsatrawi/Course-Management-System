@@ -62,6 +62,17 @@ router.post('/', isSignedIn, isAdmin, async (req, res) => {
     }
 })
 
+router.get('/school/:scoolId', async (req, res)=>{
+    try {
+        const foundSchool = await School.findById(req.params.scoolId)
+        const schoolCourses = await Course.find({school: foundSchool._id})
+        res.render('course/school-courses.ejs', {school: foundSchool, courses: schoolCourses})
+    } catch (err) {
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
+})
+
 //read one
 router.get('/:courseId', async (req, res) => {
     try {
@@ -132,6 +143,7 @@ router.delete('/:courseId', isSignedIn, isAdmin, async (req, res) => {
         res.redirect('/')
     }
 })
+
 
 //export
 module.exports = router

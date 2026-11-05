@@ -4,12 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="/css/custom.css">
+    <script defer src="/bootstrap-js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <%- include('./partials/navbar') %>
-
-    <h1>Welcome to CMS</h1>
-    <h2>Online courses</h2>
-    
+    <div class="container text-center pt-5">
+        <h1>Welcome to CMS</h1>
+        <div class="container pt-5">
+            <h3>Explore the Courses in our Schools</h3>
+            <div class="row justify-content-center">
+                <% for(let oneSchool of schools){ %>
+                <div class="card col-3 mx-3">
+                    <h4 class="card-header"><a class="page-link " href="/courses/school/<%= oneSchool._id %>"><%= oneSchool.name %></a></h4>
+                    <p class="card-body"><%= oneSchool.description %></p>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
