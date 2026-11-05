@@ -9,24 +9,33 @@
   </head>
   <body>
     <%- include('../partials/navbar') %>
-    <h1>Update <%= user.username %></h1>
-    <form action="/user/<%= user._id %>?_method=PUT" method="post">
-      <label for="role">Role: </label>
-      <select name="role" id="role">
-        <% for(oneRole of roles){ %>
-            <% if(String (oneRole._id) === String (user.role)){ %>
-                <option value="<%= oneRole._id %>" selected><%= oneRole.name %></option>
-            <% }else{ %>
-                <option value="<%= oneRole._id %>"><%= oneRole.name %></option>
+
+    <div class="container py-5">
+      <h1>Update <%= user.username %></h1>
+
+      <form action="/user/<%= user._id %>?_method=PUT" method="post">
+        <div class="form-control border border-primary my-2">
+
+          <label for="role">Role: </label>
+          <select name="role" id="role"
+          class="form-control border border-primary my-2">
+            <% for(oneRole of roles){ %>
+                <% if(String (oneRole._id) === String (user.role)){ %>
+                    <option value="<%= oneRole._id %>" selected><%= oneRole.name %></option>
+                <% }else{ %>
+                    <option value="<%= oneRole._id %>"><%= oneRole.name %></option>
+                <% } %>
             <% } %>
-        <% } %>
-      </select>
-      <div>
-        <% if(error){ %>
-            <%= error %>
-        <% } %>
+          </select>
+          <div>
+            <% if(error){ %>
+                <%= error %>
+            <% } %>
+            </div>
+          <button class="btn btn-primary my-2" type="submit">Update User </button>
+
         </div>
-      <button type="submit">Update User </button>
-    </form>
+      </form>
+    </div>
   </body>
 </html>

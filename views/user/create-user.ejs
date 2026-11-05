@@ -9,29 +9,51 @@
   </head>
   <body>
     <%- include('../partials/navbar') %>
-    <h1>Create a new User</h1>
-    <form action="/user" method="post">
-      <label for="username">Username:</label>
-      <input type="text" name="username" id="username" />
 
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password" />
+    <div class="container py-5">
+      <h1>Create a new User</h1>
 
-      <label for="confirmPassword">Confirm Password:</label>
-      <input type="password" name="confirmPassword" id="confirmPassword" />
 
-      <label for="role">Role: </label>
-      <select name="role" id="role">
-        <% for(oneRole of roles){ %>
-            <option value="<%= oneRole._id %>"><%= oneRole.name %></option>
-        <% } %>
-      </select>
-      <div>
-        <% if(error){ %>
-            <%= error %>
-        <% } %>
+      <form action="/user" method="post">
+        <div class="form-control border border-primary my-2">
+
+          <label for="username">Username:</label>
+          <input 
+          type="text" 
+          name="username" 
+          id="username" 
+          class="form-control border border-primary my-2"/>
+
+          <label for="password">Password:</label>
+          <input 
+          type="password" 
+          name="password" 
+          id="password" 
+          class="form-control border border-primary my-2"/>
+
+          <label for="confirmPassword">Confirm Password:</label>
+          <input 
+          type="password" 
+          name="confirmPassword" 
+          id="confirmPassword" 
+          class="form-control border border-primary my-2"/>
+
+          <label for="role">Role: </label>
+          <select name="role" id="role"
+            class="form-control border border-primary my-2">
+            <% for(oneRole of roles){ %>
+                <option value="<%= oneRole._id %>"><%= oneRole.name %></option>
+            <% } %>
+          </select>
+          <div>
+            <% if(error){ %>
+                <%= error %>
+            <% } %>
+          </div>
+          <button class="btn btn-primary my-2" type="submit">Create User </button>
+
         </div>
-      <button type="submit">Create User </button>
-    </form>
+      </form>
+    </div>
   </body>
 </html>
