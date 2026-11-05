@@ -9,63 +9,77 @@
 </head>
 <body>
     <%- include('../partials/navbar') %>
-    <h1>Course Details</h1>
-    <h3>Name: <%= course.name %></h3>
-    <p><td>School: </td><%= course.school.name %></p>
-    <p><td>Description: </td><%= course.description %></p>
+    <div class="container py-5">
+        <h1>Course Details</h1>
+        <h3>Name: <%= course.name %></h3>
+        <p><td>School: </td><%= course.school.name %></p>
+        <p><td>Description: </td><%= course.description %></p>
 
-    <% if(user.role === 'admin'){ %>
-        <a href="/courses/<%= course._id %>/update">Update Course</a>
-        <form action="/courses/<%= course._id %>?_method=DELETE" method="post">
-            <button>Delete Course</button>
-        </form>
-    <% } %>
-
-    <h2>Sections</h2>
-    <% if(user.role === 'admin'){ %>
-        <a href="/sections/new/<%= course._id %>">Add Section</a>
-    <% }%>
-        <% if(!sections.length == 0){ %>
-            <table class="display-table">
-            <tr class="table-header">
-                <th>Location</th>
-                <th>Day</th>
-                <th>Time</th>
-                <th>Tutor</th>
-                <th>Actions</th>
-            </tr>
-            <% for(let oneSection of sections){ %>
-                <tr class="table-row">
-                    <td><%= oneSection.location %></td>
-                    <td><%= oneSection.dayOfWeek %></td>
-                    <td><%= oneSection.time %></td>
-                    <td><%= oneSection.tutor.username %></td>
-                    <td>
-                        <% if(user.role === 'admin'){ %>
-                            <a href="/sections/<%= oneSection._id %>/update">Update Section</a>
-                            <form action="/sections/<%= oneSection._id %>?_method=DELETE" method="post">
-                                <button>Delete Section</button>
-                            </form>
-                        <% }else if (user.role === 'student') { %>
-                            <% const registerd = oneSection.students.find(oneStudent=>oneStudent.equals(user._id)) %>
-                            <% if(registerd){ %>
-                                <form action="/sections/<%= oneSection._id %>/unregister" method="post">
-                                    <button>Unregister from section</button>
-                                </form>
-                            <% }else{ %>
-                                <form action="/sections/<%= oneSection._id %>/register" method="post"></form>
-                                    <button>Register in section</button>
-                                </form>
-                            <% } %>
-                            <div>
-                                <%= error %>
-                            </div>
-                        <% } %>
-                    </td>
-            <% } %>
-            
-        <% }else{ %>
-            <h3>No Available Sections</h3>
+        <% if(user.role === 'admin'){ %>
+            <a href="/courses/<%= course._id %>/update">Update Course</a>
+            <form action="/courses/<%= course._id %>?_method=DELETE" method="post">
+                <button>Delete Course</button>
+            </form>
         <% } %>
+
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <h2 class="page-header">Sections</h2>
+            <% if(user.role === 'admin'){ %>
+                <a href="/sections/new/<%= course._id %>"class="btn btn-primary">+ Create New Section</a>
+            <% }%>
+        </div>
+        <div class="px-3">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center mb-0 display-table">
+                    <tr class="table-header table-primary">
+                        <th>Location</th>
+                        <th>Day</th>
+                        <th>Time</th>
+                        <th>Tutor</th>
+                        <th>Actions</th>
+                    </tr>
+
+                <% if(sections.length === 0){ %>
+                    <tr>
+                        <td colspan="5" class="text-muted py-4">No sections found.</td>
+                    </tr>
+                <% } %>
+                    
+                <% for(let oneSection of sections){ %>
+                    <tr class="table-row">
+                        <td><%= oneSection.location %></td>
+                        <td><%= oneSection.dayOfWeek %></td>
+                        <td><%= oneSection.time %></td>
+                        <td><%= oneSection.tutor.username %></td>
+                        <td>
+                            <div class="d-flex justify-content-center gap-2">
+                                <% if(user.role === 'admin'){ %>
+                                    <a href="/sections/<%= oneSection._id %>/update" 
+                                        class="btn btn-sm btn-outline-primary">Update</a>
+                                    <form action="/sections/<%= oneSection._id %>?_method=DELETE" method="post">
+                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </form>
+                                <% }else if (user.role === 'student') { %>
+                                    <% const registerd = oneSection.students.find(oneStudent=>oneStudent.equals(user._id)) %>
+                                    <% if(registerd){ %>
+                                        <form action="/sections/<%= oneSection._id %>/unregister" method="post">
+                                            <button class="btn btn-sm btn-outline-primary" >Unregister</button>
+                                        </form>
+                                    <% }else{ %>
+                                        <form action="/sections/<%= oneSection._id %>/register" method="post"></form>
+                                            <button class="btn btn-sm btn-outline-primary" >Register</button>
+                                        </form>
+                                    <% } %>
+                                    <div>
+                                        <%= error %>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </td>
+                <% } %>
+                    
+            </div>
+        </div>
+    </div>
 </body>
 </html>

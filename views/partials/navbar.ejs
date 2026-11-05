@@ -4,18 +4,18 @@
     <div class="container nav">
         <div class="nav navbar-left">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Homepage</a>
+            <a class="navbar-brand text-light" href="/">Homepage</a>
         </div>
     <a class="nav-link" href="/courses">Courses</a>
     <% if (user){ %>
         <% if (user.role === 'admin'){ %>
             <a class="nav-link" href="/admin">Admin Dashboard</a>
-        <% }else{ %>
+        <% }else if (user.role === 'student' || user.role === 'tutor'){ %>
             <a class="nav-link" href="/sections/my-sections">My Sections</a>
         <% } %>
     </div>
     <div class="nav">
-        <a class="nav-link"href="/user/<%= user._id %>"><%= user.username %></a>
+        <a class="nav-link" href="/user/<%= user._id %>"><%= user.username %></a>
         <a class="nav-link" href="/auth/sign-out">Logout</a>
     </div>
     <% } else{ %>

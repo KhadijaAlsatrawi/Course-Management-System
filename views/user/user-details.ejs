@@ -9,9 +9,11 @@
 </head>
 <body>
     <%- include('../partials/navbar') %>
-    <h1>User Details</h1>
-    <p><b>Username: </b><%= user.username %></p>
-    <p><b>Role: </b><%= user.role.name %></p>
-    <a href="/user/<%= user._id %>/change-password">Change Password</a>
+    <div class="container pt-5">
+        <h1>User Details</h1>
+        <p><span class="fw-semibold">Username: </span><%= user.username %></p>
+        <p><span class="fw-semibold">Role: </span><%= user.role.name %></p>
+        <a href="/user/<%= user._id %>/change-password">Change Password</a>
+    </div>
 </body>
 </html>

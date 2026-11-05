@@ -65,7 +65,7 @@ router.post('/', isSignedIn, isAdmin, async (req, res) => {
 router.get('/school/:scoolId', async (req, res)=>{
     try {
         const foundSchool = await School.findById(req.params.scoolId)
-        const schoolCourses = await Course.find({school: foundSchool._id})
+        const schoolCourses = await Course.find({school: foundSchool._id}).populate('school')
         res.render('course/school-courses.ejs', {school: foundSchool, courses: schoolCourses})
     } catch (err) {
         console.log('Error: ', err)
