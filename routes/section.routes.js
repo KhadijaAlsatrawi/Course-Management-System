@@ -52,6 +52,8 @@ router.get('/new/:courseId', isSignedIn, isAdmin, async (req, res) => {
 
 router.post('/new/:courseId', isSignedIn, isAdmin, async (req, res) => {
     try {
+        const foundCourse = await Course.findById(req.params.courseId)
+        const toturs = await User.find({ role: await Role.find({ name: 'tutor' }) })
         const { location, dayOfWeek, time, tutor } = req.body
         //validation
         const validDay = days.find(oneDay => oneDay === dayOfWeek)
@@ -65,11 +67,11 @@ router.post('/new/:courseId', isSignedIn, isAdmin, async (req, res) => {
                 tutor: tutor
             })
         } else if (!validTime) {
-            return res.render('section/update-section.ejs', {
-                section: foundSection,
-                tutors: toturs,
-                days: days,
-                error: 'Time is should be in HH:MM format supporting 24 hours',
+            return res.render('section/create-section.ejs', {
+            course: foundCourse,
+            tutors: toturs,
+            days: days,
+            error: 'Time is should be in HH:MM format supporting 24 hours',
             });
         }
         res.redirect('/courses/' + req.params.courseId)
