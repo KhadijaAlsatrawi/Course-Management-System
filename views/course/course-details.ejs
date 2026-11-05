@@ -10,17 +10,31 @@
 <body>
     <%- include('../partials/navbar') %>
     <div class="container py-5">
-        <h1>Course Details</h1>
-        <h3>Name: <%= course.name %></h3>
-        <p><td>School: </td><%= course.school.name %></p>
-        <p><td>Description: </td><%= course.description %></p>
 
-        <% if(user.role === 'admin'){ %>
-            <a href="/courses/<%= course._id %>/update">Update Course</a>
-            <form action="/courses/<%= course._id %>?_method=DELETE" method="post">
-                <button>Delete Course</button>
-            </form>
-        <% } %>
+        <h1>Course Details</h1>
+
+        <div class="border border-primary p-3 m-3 rounded-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
+                <div>
+                    <span class="badge bg-secondary mb-2"><%= course.school.name %></span>
+                    <h1 class="h2 mb-0"><%= course.name %></h1>
+                </div>
+
+                <% if(user.role === 'admin'){ %>
+                    <div class="d-flex gap-2">
+                        <a href="/courses/<%= course._id %>/update" class="btn btn-outline-primary">Update Course</a>
+                        <form action="/courses/<%= course._id %>?_method=DELETE" method="post">
+                            <button class="btn btn-outline-danger">Delete Course</button>
+                        </form>
+                    </div>
+                <% } %>
+            </div>
+
+            <hr class="my-4">
+
+            <h2 class="h6 text-uppercase text-muted mb-2">Description</h2>
+            <p class="mb-0"><%= course.description %></p>
+        </div>
 
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
             <h2 class="page-header">Sections</h2>
@@ -29,7 +43,7 @@
             <% }%>
         </div>
         <div class="px-3">
-            <div class="table-responsive">
+            <div class="table-responsive border border-primary rounded-4">
                 <table class="table table-hover align-middle text-center mb-0 display-table">
                     <tr class="table-header table-primary">
                         <th>Location</th>

@@ -9,38 +9,44 @@
 </head>
 <body>
     <%- include('../partials/navbar') %>
-    <h1>Create a new Course</h1>
 
-    <form action="/courses/" method="post">
-        <div>
-            <label for="name">Course name: </label>
-            <input 
-            name="name"
-            id="name"
-            type="text"
-            required>
-        </div>
-        <div>
-            <label for="description">Description: </label>
-            <textarea 
-            name="description"
-            id="description"
-            required></textarea>
-        </div>
-        <div>
-            <label for="school">School: </label>
-            <select name="school" id="school" required>
-                <% for (let oneSchool of schools){ %>
-                    <option value="<%= oneSchool._id %>"><%= oneSchool.name %></option>
-                <% } %>
-            </select>
-        </div>
-        <div>
-        <% if(error){ %>
-            <%= error %>
-        <% } %>
-        </div>
-        <button>Create Course</button>
-    </form>
+    <div class="container py-5">
+
+        <h1>Create a new Course</h1>
+        <form action="/courses/" method="post">
+            <div class="form-control border border-primary my-2">
+
+                <label for="name">Course name: </label>
+                <input 
+                    name="name"
+                    id="name"
+                    type="text"
+                    required
+                    class="form-control border border-primary my-2">
+
+                <label for="description">Description: </label>
+                <textarea 
+                    name="description"
+                    id="description"
+                    required
+                    class="form-control border border-primary my-2"></textarea>
+
+                <label for="school">School: </label>
+                <select name="school" id="school" required class="form-control border border-primary">
+                    <% for (let oneSchool of schools){ %>
+                        <option value="<%= oneSchool._id %>"><%= oneSchool.name %></option>
+                    <% } %>
+                </select>
+
+                <div>
+                    <% if(error){ %>
+                        <%= error %>
+                    <% } %>
+                </div>
+
+                <button class="btn btn-primary my-2">Create Course</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

@@ -22,12 +22,12 @@ $headings-color:   $body-color;
 $border-color:     tint-color($primary, 75%);
 
 $table-variants: (
-  "primary":   tint-color($primary, 60%),
-  "secondary": tint-color($secondary, 60%),
-  "success":   tint-color($success, 60%),
-  "info":      tint-color($info, 60%),
-  "warning":   tint-color($warning, 60%),
-  "danger":    tint-color($danger, 60%),
+  "primary":   $primary,
+  "secondary": $secondary,
+  "success":   $success, 
+  "info":      $info,
+  "warning":   $warning,
+  "danger":    $danger,
   "light":     $light,
   "dark":      $dark
 );

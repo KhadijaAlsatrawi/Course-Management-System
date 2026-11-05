@@ -1933,85 +1933,85 @@ progress {
 }
 
 .table-primary {
-  --bs-table-color: #4A2C1A;
-  --bs-table-bg: rgb(76.7843137255%, 70.3529411765%, 65.9607843137%);
-  --bs-table-border-color: rgb(67.231372549%, 59.7333333333%, 54.8078431373%);
-  --bs-table-striped-bg: rgb(74.3960784314%, 67.6980392157%, 63.1725490196%);
-  --bs-table-striped-color: #4A2C1A;
-  --bs-table-active-bg: rgb(72.0078431373%, 65.0431372549%, 60.3843137255%);
-  --bs-table-active-color: #4A2C1A;
-  --bs-table-hover-bg: rgb(73.2019607843%, 66.3705882353%, 61.7784313725%);
-  --bs-table-hover-color: #4A2C1A;
+  --bs-table-color: #fff;
+  --bs-table-bg: #6B4226;
+  --bs-table-border-color: rgb(53.568627451%, 40.7058823529%, 31.9215686275%);
+  --bs-table-striped-bg: rgb(44.862745098%, 29.5882352941%, 19.1568627451%);
+  --bs-table-striped-color: #fff;
+  --bs-table-active-bg: rgb(47.7647058824%, 33.2941176471%, 23.4117647059%);
+  --bs-table-active-color: #fff;
+  --bs-table-hover-bg: rgb(46.3137254902%, 31.4411764706%, 21.2843137255%);
+  --bs-table-hover-color: #fff;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
 }
 
 .table-secondary {
-  --bs-table-color: #4A2C1A;
-  --bs-table-bg: rgb(85.7254901961%, 77.7254901961%, 71.2941176471%);
-  --bs-table-border-color: rgb(74.3843137255%, 65.631372549%, 59.0745098039%);
-  --bs-table-striped-bg: rgb(82.8901960784%, 74.7019607843%, 68.2392156863%);
-  --bs-table-striped-color: #4A2C1A;
-  --bs-table-active-bg: rgb(80.0549019608%, 71.6784313725%, 65.1843137255%);
-  --bs-table-active-color: #4A2C1A;
-  --bs-table-hover-bg: rgb(81.4725490196%, 73.1901960784%, 66.7117647059%);
-  --bs-table-hover-color: #4A2C1A;
+  --bs-table-color: #000;
+  --bs-table-bg: #A47148;
+  --bs-table-border-color: rgb(51.4509803922%, 35.4509803922%, 22.5882352941%);
+  --bs-table-striped-bg: rgb(61.0980392157%, 42.0980392157%, 26.8235294118%);
+  --bs-table-striped-color: #fff;
+  --bs-table-active-bg: rgb(57.8823529412%, 39.8823529412%, 25.4117647059%);
+  --bs-table-active-color: #fff;
+  --bs-table-hover-bg: rgb(59.4901960784%, 40.9901960784%, 26.1176470588%);
+  --bs-table-hover-color: #fff;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
 }
 
 .table-success {
-  --bs-table-color: #4A2C1A;
-  --bs-table-bg: rgb(76.7843137255%, 82.431372549%, 72.2352941176%);
-  --bs-table-border-color: rgb(67.231372549%, 69.3960784314%, 59.8274509804%);
-  --bs-table-striped-bg: rgb(74.3960784314%, 79.1725490196%, 69.1333333333%);
-  --bs-table-striped-color: #4A2C1A;
-  --bs-table-active-bg: rgb(72.0078431373%, 75.9137254902%, 66.031372549%);
-  --bs-table-active-color: #4A2C1A;
-  --bs-table-hover-bg: rgb(73.2019607843%, 77.5431372549%, 67.5823529412%);
-  --bs-table-hover-color: #4A2C1A;
+  --bs-table-color: #000;
+  --bs-table-bg: #6B8F4E;
+  --bs-table-border-color: rgb(33.568627451%, 44.862745098%, 24.4705882353%);
+  --bs-table-striped-bg: rgb(39.862745098%, 53.2745098039%, 29.0588235294%);
+  --bs-table-striped-color: #000;
+  --bs-table-active-bg: rgb(37.7647058824%, 50.4705882353%, 27.5294117647%);
+  --bs-table-active-color: #000;
+  --bs-table-hover-bg: rgb(38.8137254902%, 51.8725490196%, 28.2941176471%);
+  --bs-table-hover-color: #000;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
 }
 
 .table-info {
-  --bs-table-color: #4A2C1A;
-  --bs-table-bg: rgb(74.9019607843%, 82.431372549%, 83.3725490196%);
-  --bs-table-border-color: rgb(65.7254901961%, 69.3960784314%, 68.737254902%);
-  --bs-table-striped-bg: rgb(72.6078431373%, 79.1725490196%, 79.7137254902%);
-  --bs-table-striped-color: #4A2C1A;
-  --bs-table-active-bg: rgb(70.3137254902%, 75.9137254902%, 76.0549019608%);
-  --bs-table-active-color: #4A2C1A;
-  --bs-table-hover-bg: rgb(71.4607843137%, 77.5431372549%, 77.8843137255%);
-  --bs-table-hover-color: #4A2C1A;
+  --bs-table-color: #000;
+  --bs-table-bg: #5F8F95;
+  --bs-table-border-color: rgb(29.8039215686%, 44.862745098%, 46.7450980392%);
+  --bs-table-striped-bg: rgb(35.3921568627%, 53.2745098039%, 55.5098039216%);
+  --bs-table-striped-color: #000;
+  --bs-table-active-bg: rgb(33.5294117647%, 50.4705882353%, 52.5882352941%);
+  --bs-table-active-color: #000;
+  --bs-table-hover-bg: rgb(34.4607843137%, 51.8725490196%, 54.0490196078%);
+  --bs-table-hover-color: #000;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
 }
 
 .table-warning {
   --bs-table-color: #4A2C1A;
-  --bs-table-bg: rgb(95.6078431373%, 86.5098039216%, 71.7647058824%);
-  --bs-table-border-color: rgb(82.2901960784%, 72.6588235294%, 59.4509803922%);
-  --bs-table-striped-bg: rgb(92.2784313725%, 83.0470588235%, 68.6862745098%);
+  --bs-table-bg: #E3A94B;
+  --bs-table-border-color: rgb(77.0196078431%, 56.4705882353%, 25.568627451%);
+  --bs-table-striped-bg: rgb(86.0196078431%, 63.8235294118%, 28.4509803922%);
   --bs-table-striped-color: #4A2C1A;
-  --bs-table-active-bg: rgb(88.9490196078%, 79.5843137255%, 65.6078431373%);
+  --bs-table-active-bg: rgb(83.0196078431%, 61.3725490196%, 27.4901960784%);
   --bs-table-active-color: #4A2C1A;
-  --bs-table-hover-bg: rgb(90.6137254902%, 81.3156862745%, 67.1470588235%);
+  --bs-table-hover-bg: rgb(84.5196078431%, 62.5980392157%, 27.9705882353%);
   --bs-table-hover-color: #4A2C1A;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
 }
 
 .table-danger {
-  --bs-table-color: #4A2C1A;
-  --bs-table-bg: rgb(88.3921568627%, 70.6666666667%, 69.0980392157%);
-  --bs-table-border-color: rgb(76.5176470588%, 59.9843137255%, 57.3176470588%);
-  --bs-table-striped-bg: rgb(85.4235294118%, 67.9960784314%, 66.1529411765%);
-  --bs-table-striped-color: #4A2C1A;
-  --bs-table-active-bg: rgb(82.4549019608%, 65.3254901961%, 63.2078431373%);
-  --bs-table-active-color: #4A2C1A;
-  --bs-table-hover-bg: rgb(83.9392156863%, 66.6607843137%, 64.6803921569%);
-  --bs-table-hover-color: #4A2C1A;
+  --bs-table-color: #fff;
+  --bs-table-bg: #B5443A;
+  --bs-table-border-color: rgb(76.7843137255%, 41.3333333333%, 38.1960784314%);
+  --bs-table-striped-bg: rgb(72.431372549%, 30.3333333333%, 26.6078431373%);
+  --bs-table-striped-color: #fff;
+  --bs-table-active-bg: rgb(73.8823529412%, 34%, 30.4705882353%);
+  --bs-table-active-color: #fff;
+  --bs-table-hover-bg: rgb(73.1568627451%, 32.1666666667%, 28.5392156863%);
+  --bs-table-hover-color: #fff;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
 }
