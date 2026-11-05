@@ -16,49 +16,44 @@
         <form action="/sections/new/<%= course._id %>" method="post">
             <div class="form-control border border-primary my-2">
 
-                <div>
-                    <label for="location">Location: </label>
-                    <input 
-                        name="location"
-                        id="location"
-                        type="text"
-                        required
-                        class="form-control border border-primary my-2">
-                </div>
-                <div>
-                    <label for="dayOfWeek">Day: </label>
-                    <select name="dayOfWeek" id="dayOfWeek" required
-                        class="form-control border border-primary my-2">
-                        <% for(let i=0; i < days.length; i++){ %>
-                            <option value="<%= days[i] %>"><%= days[i] %></option>
-                        <% } %>
-                    </select>
-                </div>
-                <div>
-                    <label for="time">Time: </label>
-                    <input 
-                    name="time"
-                    id="time"
+                <label for="location">Location: </label>
+                <input 
+                    name="location"
+                    id="location"
                     type="text"
                     required
-                    placeholder="HH:MM"
                     class="form-control border border-primary my-2">
-                </div>
+                <label for="dayOfWeek">Day: </label>
+                <select name="dayOfWeek" id="dayOfWeek" required
+                    class="form-control border border-primary my-2">
+                    <% for(let i=0; i < days.length; i++){ %>
+                        <option value="<%= days[i] %>"><%= days[i] %></option>
+                    <% } %>
+                </select>
+
+                <label for="time">Time: </label>
+                <input 
+                name="time"
+                id="time"
+                type="text"
+                required
+                placeholder="HH:MM"
+                class="form-control border border-primary my-2">
+
+                <label for="tutor">Tutor: </label>
+                <select name="tutor" id="tutor" required
+                    class="form-control border border-primary my-2">
+                    <% for (let oneTutor of tutors){ %>
+                        <option value="<%= oneTutor._id %>"><%= oneTutor.username %></option>
+                    <% } %>
+                </select>
                 <div>
-                    <label for="tutor">Tutor: </label>
-                    <select name="tutor" id="tutor" required
-                        class="form-control border border-primary my-2">
-                        <% for (let oneTutor of tutors){ %>
-                            <option value="<%= oneTutor._id %>"><%= oneTutor.username %></option>
-                        <% } %>
-                    </select>
-                </div>
-                <div>
-                <% if(error){ %>
-                    <p class="text-danger"><%= error %></p>
-                <% } %>
+                    <% if(error){ %>
+                        <p class="text-danger"><%= error %></p>
+                    <% } %>
                 </div>
                 <button class="btn btn-primary my-2" type="submit">Create Section</button>
+                
             </div>
         </form>
 </body>

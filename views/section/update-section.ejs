@@ -9,57 +9,65 @@
 </head>
 <body>
     <%- include('../partials/navbar') %>
-    <h1>Update Section</h1>
-    <h2>Course: <%= section.course.name %></h2>
-    <form action="/sections/<%= section._id %>?_method=PUT" method="post">
-        <div>
-            <label for="location">Location: </label>
-            <input 
-            name="location"
-            id="location"
-            type="text"
-            required
-            value="<%= section.location %>">
-        </div>
-        <div>
-            <label for="dayOfWeek">Day: </label>
-            <select name="dayOfWeek" id="dayOfWeek" required>
-                <% for(let i=0; i < days.length; i++){ %>
-                    <% if(days[i] === section.dayOfWeek) {%>
-                        <option value="<%= days[i] %>" selected><%= days[i] %></option>
-                    <% }else{ %>
-                        <option value="<%= days[i] %>"><%= days[i] %></option>
+
+    <div class="container py-5">
+        <h1>Update Section</h1>
+        <h2>Course: <%= section.course.name %></h2>
+
+        <form action="/sections/<%= section._id %>?_method=PUT" method="post">
+            <div class="form-control border border-primary my-2">
+                
+                <label for="location">Location: </label>
+                <input 
+                name="location"
+                id="location"
+                type="text"
+                required
+                value="<%= section.location %>"
+                class="form-control border border-primary my-2">
+
+                <label for="dayOfWeek">Day: </label>
+                <select name="dayOfWeek" id="dayOfWeek" required
+                    class="form-control border border-primary my-2">
+                    <% for(let i=0; i < days.length; i++){ %>
+                        <% if(days[i] === section.dayOfWeek) {%>
+                            <option value="<%= days[i] %>" selected><%= days[i] %></option>
+                        <% }else{ %>
+                            <option value="<%= days[i] %>"><%= days[i] %></option>
+                        <% } %>
                     <% } %>
-                <% } %>
-            </select>
-        </div>
-        <div>
-            <label for="time">Time: </label>
-            <input 
-            name="time"
-            id="time"
-            type="text"
-            required
-            value="<%= section.time %>">
-        </div>
-        <div>
-            <label for="tutor">Tutor: </label>
-            <select name="tutor" id="tutor" required>
-                <% for (let oneTutor of tutors){ %>
-                    <% if(String (oneTutor._id) === String (section.tutor)){ %>
-                        <option value="<%= oneTutor._id %>" selected><%= oneTutor.username %></option>
-                    <% }else{ %>
-                        <option value="<%= oneTutor._id %>"><%= oneTutor.username %></option>
+                </select>
+
+                <label for="time">Time: </label>
+                <input 
+                name="time"
+                id="time"
+                type="text"
+                required
+                value="<%= section.time %>"
+                class="form-control border border-primary my-2">
+
+                <label for="tutor">Tutor: </label>
+                <select name="tutor" id="tutor" required
+                class="form-control border border-primary my-2">
+                    <% for (let oneTutor of tutors){ %>
+                        <% if(String (oneTutor._id) === String (section.tutor)){ %>
+                            <option value="<%= oneTutor._id %>" selected><%= oneTutor.username %></option>
+                        <% }else{ %>
+                            <option value="<%= oneTutor._id %>"><%= oneTutor.username %></option>
+                        <% } %>
                     <% } %>
-                <% } %>
-            </select>
-        </div>
-        <div>
-        <% if(error){ %>
-            <%= error %>
-        <% } %>
-        </div>
-        <button>Update Section</button>
-    </form>
+                </select>
+
+                <div>
+                    <% if(error){ %>
+                        <p class="text-danger"><%= error %></p>
+                    <% } %>
+                </div>
+                <button class="btn btn-primary my-2" type="submit">Update Section</button>
+            
+            </div>
+        </form>
+    </div>
 </body>
 </html>
