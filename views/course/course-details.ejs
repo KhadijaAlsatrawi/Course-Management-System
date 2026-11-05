@@ -13,20 +13,21 @@
 
         <h1>Course Details</h1>
 
-        <div class="border border-primary p-3 m-3 rounded-4">
+        <div class="p-3 m-3">
             <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
                 <div>
                     <span class="badge bg-secondary mb-2"><%= course.school.name %></span>
                     <h1 class="h2 mb-0"><%= course.name %></h1>
                 </div>
-
-                <% if(user.role === 'admin'){ %>
-                    <div class="d-flex gap-2">
-                        <a href="/courses/<%= course._id %>/update" class="btn btn-outline-primary">Update Course</a>
-                        <form action="/courses/<%= course._id %>?_method=DELETE" method="post">
-                            <button class="btn btn-outline-danger">Delete Course</button>
-                        </form>
-                    </div>
+                <% if(user){ %>
+                    <% if(user.role === 'admin'){ %>
+                        <div class="d-flex gap-2">
+                            <a href="/courses/<%= course._id %>/update" class="btn btn-outline-primary">Update Course</a>
+                            <form action="/courses/<%= course._id %>?_method=DELETE" method="post">
+                                <button class="btn btn-outline-danger">Delete Course</button>
+                            </form>
+                        </div>
+                    <% } %>
                 <% } %>
             </div>
 
@@ -38,12 +39,14 @@
 
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
             <h2 class="page-header">Sections</h2>
-            <% if(user.role === 'admin'){ %>
-                <a href="/sections/new/<%= course._id %>"class="btn btn-primary">+ Create New Section</a>
+            <% if(user){ %>
+                <% if(user.role === 'admin'){ %>
+                    <a href="/sections/new/<%= course._id %>"class="btn btn-primary">+ Create New Section</a>
+                <% }%>
             <% }%>
         </div>
         <div class="px-3">
-            <div class="table-responsive border border-primary rounded-4">
+            <div class="table-responsive">
                 <table class="table table-hover align-middle text-center mb-0 display-table">
                     <tr class="table-header table-primary">
                         <th>Location</th>
@@ -67,26 +70,31 @@
                         <td><%= oneSection.tutor.username %></td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
-                                <% if(user.role === 'admin'){ %>
-                                    <a href="/sections/<%= oneSection._id %>/update" 
-                                        class="btn btn-sm btn-outline-primary">Update</a>
-                                    <form action="/sections/<%= oneSection._id %>?_method=DELETE" method="post">
-                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
-                                    </form>
-                                <% }else if (user.role === 'student') { %>
-                                    <% const registerd = oneSection.students.find(oneStudent=>oneStudent.equals(user._id)) %>
-                                    <% if(registerd){ %>
-                                        <form action="/sections/<%= oneSection._id %>/unregister" method="post">
-                                            <button class="btn btn-sm btn-outline-primary" >Unregister</button>
+                                <% if(user){ %>
+                                    <% if(user.role === 'admin'){ %>
+                                        <a href="/sections/<%= oneSection._id %>/update" 
+                                            class="btn btn-sm btn-outline-primary">Update</a>
+                                        <form action="/sections/<%= oneSection._id %>?_method=DELETE" method="post">
+                                            <button class="btn btn-sm btn-outline-danger">Delete</button>
                                         </form>
-                                    <% }else{ %>
-                                        <form action="/sections/<%= oneSection._id %>/register" method="post"></form>
-                                            <button class="btn btn-sm btn-outline-primary" >Register</button>
-                                        </form>
+                                    <% }else if (user.role === 'student') { %>
+                                        <% const registerd = oneSection.students.find(oneStudent=>oneStudent.equals(user._id)) %>
+                                        <% if(registerd){ %>
+                                            <form action="/sections/<%= oneSection._id %>/unregister" method="post">
+                                                <button class="btn btn-sm btn-outline-primary" >Unregister</button>
+                                            </form>
+                                        <% }else{ %>
+                                            <form action="/sections/<%= oneSection._id %>/register" method="post"></form>
+                                                <button class="btn btn-sm btn-outline-primary" >Register</button>
+                                            </form>
+                                        <% } %>
+                                        <div>
+                                            <%= error %>
+                                        </div>
                                     <% } %>
-                                    <div>
-                                        <%= error %>
-                                    </div>
+                                <% }else{ %>
+                                    <a href="/auth/sign-in" 
+                                            class="btn btn-sm btn-outline-primary">Sign in</a>
                                 <% } %>
                             </div>
                         </td>
