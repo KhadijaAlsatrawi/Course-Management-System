@@ -43,7 +43,8 @@ router.post('/', isSignedIn, isAdmin, async (req, res) => {
             description: description,
             school: school,
         })
-        res.redirect('/courses')
+        const msg = encodeURIComponent(`Course "${createdCourse.name}" has been created!`);
+        res.redirect(`/courses?message=${msg}&type=success`);
 
     } catch (err) {
         const allSchools = await School.find()
@@ -83,6 +84,7 @@ router.get('/:courseId', async (req, res) => {
         } catch (err) {
             sections = null
         }
+        
         res.render('course/course-details.ejs', { course: foundCourse, sections: sections, error: null })
     } catch (err) {
         console.log('Error: ', err)
@@ -111,7 +113,9 @@ router.put('/:courseId', isSignedIn, isAdmin, async (req, res) => {
             school: school,
         })
 
-        res.redirect('/courses/' + updatedCourse._id)
+        const msg = encodeURIComponent(`Course "${updatedCourse.name}" has been updated.`)
+        res.redirect(`/courses/${updatedCourse._id}?message=${msg}&type=success`)
+
     } catch (err) {
         const foundCourse = await Course.findById(req.params.courseId)
         const allSchools = await School.find()
@@ -135,12 +139,15 @@ router.put('/:courseId', isSignedIn, isAdmin, async (req, res) => {
 //delete
 router.delete('/:courseId', isSignedIn, isAdmin, async (req, res) => {
     try {
-        await Course.findByIdAndDelete(req.params.courseId)
+        const deletedCourse = await Course.findByIdAndDelete(req.params.courseId)
         await Section.deleteMany({ course: req.params.courseId })
-        res.redirect('/courses')
+
+        const msg = encodeURIComponent(`Course "${deletedCourse.name}" has been deleted.`)
+        res.redirect(`/courses?message=${msg}&type=success`)
     } catch (err) {
         console.log('Error: ', err)
-        res.redirect('/')
+        const msg = encodeURIComponent(`Something went wrong`)
+        res.redirect('/courses?message=${msg}&type=danger')
     }
 })
 

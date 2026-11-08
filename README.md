@@ -56,3 +56,6 @@ Regex:
 
 Search:
 - https://www.w3schools.com/howto/howto_js_filter_table.asp
+
+Toast:
+- https://getbootstrap.com/docs/5.3/components/toasts/

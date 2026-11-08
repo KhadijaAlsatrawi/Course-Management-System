@@ -23,19 +23,25 @@
                     id="name"
                     type="text"
                     required
-                    class="form-control border border-primary my-2">
+                    class="form-control border border-primary my-2"
+                    value="<%= course.name %>">
 
                 <label for="description">Description: </label>
                 <textarea 
                     name="description"
                     id="description"
                     required
-                    class="form-control border border-primary my-2"></textarea>
+                    class="form-control border border-primary my-2"
+                    ><%= course.description %></textarea>
 
                 <label for="school">School: </label>
                 <select name="school" id="school" required class="form-control border border-primary">
                     <% for (let oneSchool of schools){ %>
-                        <option value="<%= oneSchool._id %>"><%= oneSchool.name %></option>
+                        <% if(String (course.school) === String(oneSchool._id)){ %>
+                            <option value="<%= oneSchool._id %>" selected><%= oneSchool.name %></option>
+                        <% }else{ %>
+                            <option value="<%= oneSchool._id %>"><%= oneSchool.name %></option>
+                        <% } %>
                     <% } %>
                 </select>
 
