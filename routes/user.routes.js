@@ -56,7 +56,9 @@ router.post('/', isSignedIn, isAdmin, async (req, res) => {
             password: hashedPassword,
             role: role
         });
-        res.redirect("/user/");
+
+        const msg = encodeURIComponent(`User "${user.username}" has been created.`)
+        res.redirect(`/user?message=${msg}&type=success`);
 
     } catch (err) {
         const allRoles = await Role.find()
@@ -97,7 +99,9 @@ router.put('/:userId', isSignedIn, isAdmin, async (req, res) => {
         const user = await User.findByIdAndUpdate(req.params.userId, {
             role: role
         });
-        res.redirect("/user/");
+
+        const msg = encodeURIComponent(`User "${user.username}" has been updated.`)
+        res.redirect(`/user?message=${msg}&type=success`);
     } catch (err) {
         const allRoles = await Role.find()
         const foundUser = await User.findById(req.params.userId)
@@ -121,11 +125,14 @@ router.put('/:userId', isSignedIn, isAdmin, async (req, res) => {
 //delete
 router.delete('/:userId', isSignedIn, isAdmin, async (req, res) => {
     try {
-        await User.findByIdAndDelete(req.params.userId)
-        res.redirect("/user/");
+        const deletedUser = await User.findByIdAndDelete(req.params.userId)
+
+        const msg = encodeURIComponent(`User "${deletedUser.username}" has been deleted.`)
+        res.redirect(`/user?message=${msg}&type=success`);
     } catch (err) {
         console.log('Error: ', err)
-        res.redirect('/')
+        const msg = encodeURIComponent(`Something went wrong.`)
+        res.redirect(`/courses?message=${msg}&type=danger`)
     }
 })
 
@@ -160,7 +167,8 @@ router.put('/:userId/change-password', isSignedIn, async (req, res) => {
             password: hashedPassword
         });
 
-        res.redirect("/user/" + user._id);
+        const msg = encodeURIComponent(`The password has been changed`)
+        res.redirect(`/user/${user._id}?message=${msg}&type=success`);
     } catch (err) {
         const foundUser = await User.findById(req.params.userId)
         if (err.name === "ValidationError") {
@@ -178,7 +186,7 @@ router.put('/:userId/change-password', isSignedIn, async (req, res) => {
     }
 })
 
-//read one (view own account)
+//read one 
 router.get('/:userId', isSignedIn, async (req, res) => {
     if (String(req.session.user._id) === req.params.userId) {
         try {

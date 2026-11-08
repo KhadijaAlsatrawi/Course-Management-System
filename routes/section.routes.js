@@ -71,10 +71,13 @@ router.post('/new/:courseId', isSignedIn, isAdmin, async (req, res) => {
             course: foundCourse,
             tutors: toturs,
             days: days,
-            error: 'Time is should be in HH:MM format supporting 24 hours',
+            error: 'Time is should be in HH:MM format supporting 24 hours.',
             });
         }
-        res.redirect('/courses/' + req.params.courseId)
+
+        const msg = encodeURIComponent(`A new Section for "${foundCourse._id}" has been created.`)
+        res.redirect(`/courses/${req.params.courseId}?message=${msg}&type=success`)
+
     } catch (err) {
         const foundCourse = await Course.findById(req.params.courseId)
         const toturs = await User.find({ role: await Role.find({ name: 'tutor' }) })
@@ -91,7 +94,7 @@ router.post('/new/:courseId', isSignedIn, isAdmin, async (req, res) => {
                 course: foundCourse,
                 tutors: toturs,
                 days: days,
-                error: "Resource already exists with this name",
+                error: "Resource already exists with this name.",
             });
         }
     }
@@ -112,10 +115,11 @@ router.post('/:sectionId/register', isSignedIn, isStudent, async (req, res) => {
 
         for (let oneSection of courseSections) {
             if (oneSection.students.find(oneStudent => oneStudent.equals(req.session.user._id))) {
-                return res.render('course/course-details.ejs', {
+                
+                const msg = encodeURIComponent('You are registered in this Course.')
+                return res.render(`course/course-details.ejs?message=${msg}&type=danger`, {
                     course: foundCourse,
                     sections: sections,
-                    error: "you are registed in this course"
                 })
             }
         }
@@ -126,13 +130,15 @@ router.post('/:sectionId/register', isSignedIn, isStudent, async (req, res) => {
                 { $push: { students: req.session.user._id } }
             )
         } else {
-            return res.render('course/course-details.ejs', {
+            const msg = encodeURIComponent('You are registed in this section.')
+            return res.render(`course/course-details.ejs?message=${msg}&type=danger`, {
                 course: foundCourse,
                 sections: sections,
-                error: "you are registed in this section"
             })
         }
-        res.redirect('/courses/' + foundSection.course)
+
+        const msg = encodeURIComponent('You are registed in this section.')
+        res.redirect(`/courses/${foundSection.course}?message=${msg}&type=success`)
     } catch (err) {
         console.log('Error: ', err)
         res.redirect('/')
@@ -157,13 +163,16 @@ router.post('/:sectionId/unregister', isSignedIn, isStudent, async (req, res) =>
                 { $pull: { students: req.session.user._id } }
             )
         } else {
-            return res.render('course/course-details.ejs', {
+
+            const msg = encodeURIComponent('You are not registed in this section.')
+            return res.render(`course/course-details.ejs?message=${msg}&type=danger`, {
                 course: foundCourse,
-                sections: sections,
-                error: "you are not registed in this section"
+                sections: sections
             })
         }
-        res.redirect('/courses/' + foundSection.course)
+
+        const msg = encodeURIComponent('You are unregisted from this section.')
+        res.redirect(`/courses/${foundSection.course}?message=${msg}&type=success`)
     } catch (err) {
         console.log('Error: ', err)
         res.redirect('/')
@@ -201,7 +210,8 @@ router.put('/:sectionId', isSignedIn, isAdmin, async (req, res) => {
                 time: time,
                 tutor: tutor
             })
-            res.redirect('/courses/' + createdSection.course)
+            const msg = encodeURIComponent(`The Section has been updates.`)
+            res.redirect(`/courses/${createdSection.course}?message=${msg}&type=success`)
         }
         else if (!validTime) {
             return res.render('section/update-section.ejs', {
@@ -241,7 +251,8 @@ router.delete('/:sectionId', isSignedIn, isAdmin, async (req, res) => {
         res.redirect('/courses/' + foundSection.course)
     } catch (err) {
         console.log('Error: ', err)
-        res.redirect('/')
+        const msg = encodeURIComponent(`Something went wrong.`)
+        res.redirect(`/courses?message=${msg}&type=danger`)
     }
 })
 

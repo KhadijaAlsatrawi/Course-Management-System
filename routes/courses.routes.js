@@ -43,7 +43,7 @@ router.post('/', isSignedIn, isAdmin, async (req, res) => {
             description: description,
             school: school,
         })
-        const msg = encodeURIComponent(`Course "${createdCourse.name}" has been created!`);
+        const msg = encodeURIComponent(`Course "${createdCourse.name}" has been created.`);
         res.redirect(`/courses?message=${msg}&type=success`);
 
     } catch (err) {
@@ -85,7 +85,7 @@ router.get('/:courseId', async (req, res) => {
             sections = null
         }
         
-        res.render('course/course-details.ejs', { course: foundCourse, sections: sections, error: null })
+        res.render('course/course-details.ejs', { course: foundCourse, sections: sections })
     } catch (err) {
         console.log('Error: ', err)
         res.redirect('/')
@@ -146,8 +146,8 @@ router.delete('/:courseId', isSignedIn, isAdmin, async (req, res) => {
         res.redirect(`/courses?message=${msg}&type=success`)
     } catch (err) {
         console.log('Error: ', err)
-        const msg = encodeURIComponent(`Something went wrong`)
-        res.redirect('/courses?message=${msg}&type=danger')
+        const msg = encodeURIComponent(`Something went wrong.`)
+        res.redirect(`/courses?message=${msg}&type=danger`)
     }
 })
 
