@@ -8,18 +8,6 @@ const isAdmin = require("../middleware/is-admin");
 const User = require("../models/User");
 const Role = require("../models/Role");
 
-
-//read
-router.get('/', isSignedIn, isAdmin, async (req, res) => {
-    try {
-        const allUsers = await User.find().populate('role')
-        res.render('user/index.ejs', { users: allUsers })
-    } catch (err) {
-        console.log('Error: ', err)
-        res.redirect('/')
-    }
-})
-
 //create
 router.get('/new', isSignedIn, isAdmin, async (req, res) => {
     const allRoles = await Role.find()

@@ -5,8 +5,13 @@ const School = require('../models/School')
 
 
 router.get('/', async (req, res) => {
-
-    res.render('admin/admin-dashboard.ejs')
+    try {
+        const allUsers = await User.find().populate('role')
+        res.render('admin/admin-dashboard.ejs', { users: allUsers })
+    } catch (err) {
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
 })
 
 module.exports = router;
