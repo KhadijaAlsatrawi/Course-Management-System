@@ -32,5 +32,12 @@ $table-variants: (
   "dark":      $dark
 );
 
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
 
 @import "../node_modules/bootstrap/scss/bootstrap";

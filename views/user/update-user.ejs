@@ -6,6 +6,7 @@
     <title>Update User</title>
     <link rel="stylesheet" href="/css/custom.css">
     <script defer src="/bootstrap-js/bootstrap.bundle.min.js"></script>
+    <script defer src="/js/imagePreview.js"></script>
   </head>
   <body>
     <%- include('../partials/navbar') %>
@@ -13,25 +14,25 @@
     <div class="container py-5">
       <h1>Update <%= user.username %></h1>
 
-      <form action="/user/<%= user._id %>?_method=PUT" method="post">
-        <div class="form-control border border-primary my-2">
+      <form action="/user/<%= user._id %>?_method=PUT" method="post" enctype="multipart/form-data">
+        <div class="form-control border border-primary my-2 flex">
+          <img id="imagePreview" src="<%= user.profileImg %>?v=<%= user.updatedAt ? user.updatedAt.getTime() : '' %>"
+          alt="Preview" style="max-width: 300px;">
 
-          <label for="role">Role: </label>
-          <select name="role" id="role"
-          class="form-control border border-primary my-2">
-            <% for(oneRole of roles){ %>
-                <% if(String (oneRole._id) === String (user.role)){ %>
-                    <option value="<%= oneRole._id %>" selected><%= oneRole.name %></option>
-                <% }else{ %>
-                    <option value="<%= oneRole._id %>"><%= oneRole.name %></option>
-                <% } %>
-            <% } %>
-          </select>
+          <input type="file" id="fileInput" accept="image/*"
+           class="form-control border border-primary my-2"
+           name="profileImg">
+
+          <label for="email">Email:</label>
+          <input type="email" name="email" id="email"
+           class="form-control border border-primary my-2"
+           value="<%= user.email %>">
+            
           <div>
             <% if(error){ %>
                 <%= error %>
             <% } %>
-            </div>
+          </div>
           <button class="btn btn-primary my-2" type="submit">Update User </button>
 
         </div>

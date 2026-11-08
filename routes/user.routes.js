@@ -4,9 +4,13 @@ const bcrypt = require("bcrypt");
 
 const isSignedIn = require("../middleware/is-signed-in");
 const isAdmin = require("../middleware/is-admin");
+const upload = require('../middleware/upload');
 
 const User = require("../models/User");
 const Role = require("../models/Role");
+const isOwner = require("../middleware/is-owner");
+
+const DEFAULT_IMAGE = '/images/default-avatar.png';
 
 //create
 router.get('/new', isSignedIn, isAdmin, async (req, res) => {
@@ -65,8 +69,53 @@ router.post('/', isSignedIn, isAdmin, async (req, res) => {
     }
 })
 
-//update
-router.get('/:userId/update', isSignedIn, isAdmin, async (req, res) => {
+//update user role
+router.get('/:userId/update-role', isSignedIn, isAdmin, async (req, res) => {
+    try {
+        const allRoles = await Role.find()
+        const foundUser = await User.findById(req.params.userId)
+        res.render('user/update-user-role.ejs', {
+            user: foundUser,
+            roles: allRoles,
+            error: null
+        })
+    } catch (err) {
+        console.log('Error: ', err)
+        res.redirect('/')
+    }
+})
+
+router.put('/:userId/role', isSignedIn, isAdmin, async (req, res) => {
+    try {
+        const { role } = req.body
+        const user = await User.findByIdAndUpdate(req.params.userId, {
+            role: role
+        });
+
+        const msg = encodeURIComponent(`User "${user.username}" has been updated.`)
+        res.redirect(`/user/${user._id}?message=${msg}&type=success`);
+    } catch (err) {
+        const allRoles = await Role.find()
+        const foundUser = await User.findById(req.params.userId)
+        if (err.name === "ValidationError") {
+            return res.render('user/update-user.ejs', {
+                user: foundUser,
+                roles: allRoles,
+                error: err.message,
+            });
+        }
+        if (err.code === 11000) {
+            return res.render('user/update-user.ejs', {
+                user: foundUser,
+                roles: allRoles,
+                error: "Resource already exists with this name",
+            });
+        }
+    }
+})
+
+//update user
+router.get('/:userId/update', isSignedIn, isOwner, async (req, res) => {
     try {
         const allRoles = await Role.find()
         const foundUser = await User.findById(req.params.userId)
@@ -81,15 +130,22 @@ router.get('/:userId/update', isSignedIn, isAdmin, async (req, res) => {
     }
 })
 
-router.put('/:userId', isSignedIn, isAdmin, async (req, res) => {
+router.put('/:userId', isSignedIn, isOwner, upload.single('profileImg'), async (req, res) => {
     try {
-        const { role } = req.body
+        let profileImg = null
+
+        if (req.file) {
+            profileImg = `/uploads/users/${req.file.filename}`
+        }
+
+        const email = req.body.email
         const user = await User.findByIdAndUpdate(req.params.userId, {
-            role: role
+            profileImg: profileImg,
+            email: email
         });
 
-        const msg = encodeURIComponent(`User "${user.username}" has been updated.`)
-        res.redirect(`/user?message=${msg}&type=success`);
+        const msg = encodeURIComponent(`the img is ${profileImg} and email is ${email}`)
+        res.redirect(`/user/${user._id}?message=${msg}&type=success`);
     } catch (err) {
         const allRoles = await Role.find()
         const foundUser = await User.findById(req.params.userId)
@@ -125,29 +181,27 @@ router.delete('/:userId', isSignedIn, isAdmin, async (req, res) => {
 })
 
 //change password
-router.get('/:userId/change-password', isSignedIn, async (req, res) => {
-    if (String(req.session.user._id) === req.params.userId) {
-        try {
-            const foundUser = await User.findById(req.params.userId)
-            res.render('user/change-password.ejs', { user: foundUser, error: null })
-        } catch (err) {
-            console.log('Error: ', err)
-            res.redirect('/')
-        }
-    } else {
+router.get('/:userId/change-password', isSignedIn, isOwner, async (req, res) => {
+
+    try {
+        const foundUser = await User.findById(req.params.userId)
+        res.render('user/change-password.ejs', { user: foundUser, error: null })
+    } catch (err) {
+        console.log('Error: ', err)
         res.redirect('/')
     }
 })
 
-router.put('/:userId/change-password', isSignedIn, async (req, res) => {
-    const foundUser = await User.findById(req.params.userId)
+router.put('/:userId/change-password', isSignedIn, isOwner, async (req, res) => {
     try {
+        const foundUser = await User.findById(req.params.userId)
         const { password, confirmPassword } = req.body
 
         if (password !== confirmPassword) {
-            return res.render('user/change-password.ejs', { 
+            return res.render('user/change-password.ejs', {
                 user: foundUser,
-                error:"Password and Confirm Password must match"});
+                error: "Password and Confirm Password must match"
+            });
         }
         const hashedPassword = bcrypt.hashSync(password, 10);
 
@@ -160,13 +214,13 @@ router.put('/:userId/change-password', isSignedIn, async (req, res) => {
     } catch (err) {
         const foundUser = await User.findById(req.params.userId)
         if (err.name === "ValidationError") {
-            return res.render('user/change-password.ejs', { 
+            return res.render('user/change-password.ejs', {
                 user: foundUser,
                 error: err.message,
             });
         }
         if (err.code === 11000) {
-            return res.render('user/change-password.ejs', { 
+            return res.render('user/change-password.ejs', {
                 user: foundUser,
                 error: "Resource already exists with this name",
             });
