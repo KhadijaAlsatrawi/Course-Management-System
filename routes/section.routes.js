@@ -75,7 +75,7 @@ router.post('/new/:courseId', isSignedIn, isAdmin, async (req, res) => {
             });
         }
 
-        const msg = encodeURIComponent(`A new Section for "${foundCourse._id}" has been created.`)
+        const msg = encodeURIComponent(`A new Section for "${foundCourse.name}" has been created.`)
         res.redirect(`/courses/${req.params.courseId}?message=${msg}&type=success`)
 
     } catch (err) {
@@ -105,7 +105,8 @@ router.post('/:sectionId/register', isSignedIn, isStudent, async (req, res) => {
         const foundSection = await Section.findById(req.params.sectionId)
         const courseSections = await Section.find({ course: foundSection.course })
 
-        const foundCourse = await Course.findById(req.params.courseId).populate('school')
+        const foundCourse = await Course.findById(foundSection.course).populate('school')
+        console.log(foundCourse)
         let sections
         try {
             sections = await Section.find({ course: req.params.courseId }).populate('tutor')
@@ -117,10 +118,7 @@ router.post('/:sectionId/register', isSignedIn, isStudent, async (req, res) => {
             if (oneSection.students.find(oneStudent => oneStudent.equals(req.session.user._id))) {
                 
                 const msg = encodeURIComponent('You are registered in this Course.')
-                return res.render(`course/course-details.ejs?message=${msg}&type=danger`, {
-                    course: foundCourse,
-                    sections: sections,
-                })
+                return res.redirect(`/courses/${foundSection.course}?message=${msg}&type=danger`)
             }
         }
 
@@ -131,14 +129,11 @@ router.post('/:sectionId/register', isSignedIn, isStudent, async (req, res) => {
             )
         } else {
             const msg = encodeURIComponent('You are registed in this section.')
-            return res.render(`course/course-details.ejs?message=${msg}&type=danger`, {
-                course: foundCourse,
-                sections: sections,
-            })
+            return res.redirect(`/courses/${foundCourse._id}?message=${msg}&type=danger`)
         }
 
         const msg = encodeURIComponent('You are registed in this section.')
-        res.redirect(`/courses/${foundSection.course}?message=${msg}&type=success`)
+        res.redirect(`/courses/${foundCourse._id}?message=${msg}&type=success`)
     } catch (err) {
         console.log('Error: ', err)
         res.redirect('/')
@@ -165,10 +160,7 @@ router.post('/:sectionId/unregister', isSignedIn, isStudent, async (req, res) =>
         } else {
 
             const msg = encodeURIComponent('You are not registed in this section.')
-            return res.render(`course/course-details.ejs?message=${msg}&type=danger`, {
-                course: foundCourse,
-                sections: sections
-            })
+            return res.redirect(`/courses/${foundCourse._id}?message=${msg}&type=danger`)
         }
 
         const msg = encodeURIComponent('You are unregisted from this section.')

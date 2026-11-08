@@ -91,11 +91,11 @@
                                         <% const registerd = oneSection.students.find(oneStudent=>oneStudent.equals(user._id)) %>
                                         <% if(registerd){ %>
                                             <form action="/sections/<%= oneSection._id %>/unregister" method="post">
-                                                <button class="btn btn-sm btn-outline-primary" >Unregister</button>
+                                                <button class="btn btn-sm btn-outline-primary" type="submit">Unregister</button>
                                             </form>
                                         <% }else{ %>
-                                            <form action="/sections/<%= oneSection._id %>/register" method="post"></form>
-                                                <button class="btn btn-sm btn-outline-primary" >Register</button>
+                                            <form action="/sections/<%= oneSection._id %>/register" method="post">
+                                                <button class="btn btn-sm btn-outline-primary" type="submit">Register</button>
                                             </form>
                                         <% } %>
                                     <% } %>

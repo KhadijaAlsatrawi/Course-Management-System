@@ -144,7 +144,7 @@ router.put('/:userId', isSignedIn, isOwner, upload.single('profileImg'), async (
             email: email
         });
 
-        const msg = encodeURIComponent(`the img is ${profileImg} and email is ${email}`)
+        const msg = encodeURIComponent(`User "${user.username}" has been updated.`)
         res.redirect(`/user/${user._id}?message=${msg}&type=success`);
     } catch (err) {
         const allRoles = await Role.find()
