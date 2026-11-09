@@ -26,11 +26,11 @@ git clone https://github.com/KhadijaAlsatrawi/Course-Management-System.git
 ```
 cd Course-Management-System
 ```
-3. Install the dependencies. 
+3. Install dependencies
 ```
 npm i
 ```
-4. Create .env file and add the following 
+4. Create .env file and add the following
 ```
 MONGODB_URI = <Your Connection String to a MongoDB>
 SESSION_SECRET= <Your Session Secret>
@@ -45,6 +45,15 @@ node seed.js
 nodemon server.js
 ```
 7. Go to http://localhost:3000/ in your browser 
+
+8. Sample users: 
+```
+| Username | password |
+|----------|----------|
+| admin    | a@test   |
+| tutor    | t@test   |
+| student  | s@test   |
+```
 
 ## User Stories
 1.	I as a user, want to sign in to the website.
