@@ -75,8 +75,8 @@ nodemon server.js
 |--------|---------------------------------|----------------------------|-------------------------------------------------------|
 | get    | /user/new                       | create-user.ejs            | Display the creation form                             |
 | post   | /user/                          | -                          | Creates the user                                      |
-| get    | /user/:userId/update-role       | update-user-role.ejs       | Display the update form                               |
-| put    | /user/:userId/role              | -                          | Change the user Role                                  |
+| get    | /user/:userId/update-school       | update-user-school.ejs       | Display the update form                               |
+| put    | /user/:userId/school              | -                          | Change the user school                                  |
 | get    | /user/:userId/update            | user/update-user.ejs       | Display the update form                               |
 | put    | /user/:userId                   | -                          | Update the user                                       |
 | delete | /user/:userId                   | -                          | Delete the user                                       |
@@ -84,7 +84,19 @@ nodemon server.js
 | put    | /user/:userId/change-password   | -                          | Update the user password                              |
 | get    | /user/:userId                   | user/user-details.ejs      | Display the information of one user                   |
 | get    | /admin/                         | admin/admin-dashboard.ejs  | Display the admin dashboard (user List)               |
-| get    | /admin//export-to-pdf           | -                          |  Export the user List to a PDF
+| get    | /admin/export-to-pdf            | -                          |  Export the user List to a PDF                        |
+| get    | /admin/roles                    | admin/role-index.ejs       | Display the roles                                     |
+| get    | /admin/roles/new                | admin/create-role.ejs      | Display the creation                                  |
+| post   | /admin/roles                    | -                          | Creates the role                                      |
+| get    | /admin/roles/:roleId/update     | admin/update-role.ejs      | Display the update form                               |
+| put    | /admin/roles/:roleId            | -                          | Update the role                                       |
+| delete | /admin/roles/:roleId            | -                          | Delete the role                                       |
+| get    | /admin/schools                  | admin/school-index.ejs     | Display the schools                                   |
+| get    | /admin/schools/new              | admin/create-school.ejs    | Display the creation                                  |
+| post   | /admin/schools                  | -                          | Creates the school                                    |
+| get    | /admin/schools/:schoolId/update | admin/update-school.ejs    | Display the update form                               |
+| put    | /admin/schools/:schoolId        | -                          | Update the school                                     |
+| delete | /admin/schools/:schoolId        | -                          | Delete the school                                     |
 | get    | /courses/                       | course/index.ejs           | Display the courses                                   |
 | get    | /courses/new                    | course/create-course.ejs   | Display the creation form                             |
 | post   | /courses/                       | -                          | Creates the course                                    |
@@ -107,19 +119,21 @@ nodemon server.js
 1. Full CRUD on courses.
 2. Full CRUD on sections.
 3. Full CRUD on users.
-4. Registering in sections.
-5. Role management.
-6. Profile photo upload.
-7. Integrated Bootstrap.
-8. Toasts.
-9. Sample data in seeds.
+4. Full CRUD on Schools.
+5. Full CRUD on schools.
+6. Registering in sections.
+7. school management.
+8. Profile photo upload.
+9. Integrated Bootstrap.
+10. Toasts.
+11. Sample data in seeds.
+12. Exporting user list to PDF.
 
 
 ## Future Enhancements
-1. Full CRUD on Schools.
-2. Full CRUD on Roles.
-3. Student schedule.
-4. Adding Filter.
+1. Student schedule.
+2. Adding Filter.
+3. Email confirmation
 
 
 ## Credits (edited)

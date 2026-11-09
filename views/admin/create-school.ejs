@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New School</title>
+    <link rel="stylesheet" href="/css/custom.css">
+    <script defer src="/bootstrap-js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <div class="container py-5">
+
+        <h1>Create a new School</h1>
+        <form action="/admin/schools" method="post">
+            <div class="form-control border border-primary my-2">
+
+                <label for="name">School name: </label>
+                <input 
+                    name="name"
+                    id="name"
+                    type="text"
+                    required
+                    class="form-control border border-primary my-2">
+
+                <label for="description">Description: </label>
+                <textarea 
+                    name="description"
+                    id="description"
+                    required
+                    class="form-control border border-primary my-2"></textarea>
+                <div>
+                    <% if(error){ %>
+                        <p class="text-danger"><%= error %></p>
+                    <% } %>
+                </div>
+
+                <button class="btn btn-primary my-2" type="submit">Create School</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
