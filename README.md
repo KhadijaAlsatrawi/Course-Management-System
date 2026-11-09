@@ -65,8 +65,8 @@ nodemon server.js
 8.	I as an admin, want to do CRUD on courses.
 9.	I as an admin, want to do CRUD on sections.
 10. I as an admin, want to do CRUD on users.
-10. I as an admin, want to do CRUD on roles.
-10. I as an admin, want to do CRUD on schools.
+11. I as an admin, want to do CRUD on roles.
+12. I as an admin, want to do CRUD on schools.
 
 
 ## Database Design
