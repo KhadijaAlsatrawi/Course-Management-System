@@ -119,7 +119,7 @@ nodemon server.js
 1. Full CRUD on courses.
 2. Full CRUD on sections.
 3. Full CRUD on users.
-4. Full CRUD on Schools.
+4. Full CRUD on Roles.
 5. Full CRUD on schools.
 6. Registering in sections.
 7. school management.
