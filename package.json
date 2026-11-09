@@ -21,6 +21,8 @@
     "ejs": "^3.1.10",
     "express": "^5.2.1",
     "express-session": "^1.18.2",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.9",
     "method-override": "^3.0.0",
     "mongoose": "^9.1.2",
     "morgan": "^1.10.1",

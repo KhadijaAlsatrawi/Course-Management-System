@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User.js");
 const bcrypt = require("bcrypt");
+
+const User = require("../models/User.js");
 const Role = require("../models/Role.js");
 
 
@@ -28,7 +29,7 @@ router.post("/sign-up", async (req, res) => {
     username: username,
     password: hashedPassword,
     email: email,
-    role: await Role.find({name: 'student'})
+    role: await Role.findOne({name: 'student'})
   });
   res.redirect("/auth/sign-in");
 });

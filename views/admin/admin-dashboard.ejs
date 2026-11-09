@@ -21,11 +21,14 @@
     </div>
 
     <div class="container py-5">
-
         <h1>Admin Dashboard</h1>
 
-        <div id="links">
-            <a href="/courses/new">Add new Course</a>
+        <div class="d-flex justify-content-left gap-2">
+            <a href="/admin/roles" class="btn btn-sm btn-outline-primary">Roles List</a>
+            <a href="/courses/new" class="btn btn-sm btn-outline-primary">Add new Course</a>
+            <form action="/admin/export-to-pdf" method="get">
+                <button id="export-btn" class="btn btn-sm btn-outline-primary">Export to PDF</button>
+            </form>
         </div>
 
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 my-4">
@@ -43,23 +46,25 @@
                     <tr class="table-header table-primary">
                         <th>Username</th>
                         <th>Role</th>
+                        <th>Email</th>
                         <th>Actions</th>
                     </tr>
                     <% if (users.length===0) { %>
                         <tr>
-                            <td colspan="3" class="text-muted py-4">No users found.</td>
+                            <td colspan="4" class="text-muted py-4">No users found.</td>
                         </tr>
                     <% } %>
                     <% for (let oneUser of users) { %>
                         <tr class="table-row">
                             <td class="fw-semibold"><%= oneUser.username %></td>
                             <td><%= oneUser.role.name %></td>
+                            <td><%= oneUser.email %></td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
                                     <a href="/user/<%= oneUser._id %>/update-role"
                                         class="btn btn-sm btn-outline-primary">Update</a>
                                     <form action="/user/<%= oneUser._id %>?_method=DELETE" method="post">
-                                        <button class="btn btn-sm btn-outline-danger" onclick="confirm('Delete this User?')">Delete</button>
+                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
                                     </form>
                                 </div>
                             </td>

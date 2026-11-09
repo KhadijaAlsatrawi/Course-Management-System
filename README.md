@@ -12,7 +12,6 @@ This website is a Course / Section management system allowing admins to create, 
 ![New course form](README-media/create-course.png)
 
 
-
 ## Technologies Used
 1. MEN Stack
 2. Bootstrap
@@ -85,6 +84,7 @@ nodemon server.js
 | put    | /user/:userId/change-password   | -                          | Update the user password                              |
 | get    | /user/:userId                   | user/user-details.ejs      | Display the information of one user                   |
 | get    | /admin/                         | admin/admin-dashboard.ejs  | Display the admin dashboard (user List)               |
+| get    | /admin//export-to-pdf           | -                          |  Export the user List to a PDF
 | get    | /courses/                       | course/index.ejs           | Display the courses                                   |
 | get    | /courses/new                    | course/create-course.ejs   | Display the creation form                             |
 | post   | /courses/                       | -                          | Creates the course                                    |

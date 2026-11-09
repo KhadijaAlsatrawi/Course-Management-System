@@ -40,10 +40,11 @@
                         <th>Day</th>
                         <th>Time</th>
                         <th>Tutor</th>
+                        <th>Action</th>
                     </tr>
                     <% if(sections.length === 0){ %>
                         <tr>
-                            <td colspan="5" class="text-muted py-4">No sections found.</td>
+                            <td colspan="6" class="text-muted py-4">No sections found.</td>
                         </tr>
                     <% } %>
                     <% for(let oneSection of sections){ %>
@@ -53,6 +54,10 @@
                             <td><%= oneSection.dayOfWeek %></td>
                             <td><%= oneSection.time %></td>
                             <td><%= oneSection.tutor.username %></td>
+                            <td><form action="/sections/<%= oneSection._id %>/unregister" method="post">
+                                    <button class="btn btn-sm btn-outline-primary" type="submit">Unregister</button>
+                                </form>
+                            </td>
                         </tr>
                     <% } %>
                 </table>
