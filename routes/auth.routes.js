@@ -11,7 +11,7 @@ router.get("/sign-up", (req, res) => {
 });
 
 router.post("/sign-up", async (req, res) => {
-  const { username, password, confirmPassword} = req.body
+  const { username, email, password, confirmPassword} = req.body
 
   const userInDatabase = await User.findOne({ username: username });
   if (userInDatabase) {
@@ -27,6 +27,7 @@ router.post("/sign-up", async (req, res) => {
   const user = await User.create({
     username: username,
     password: hashedPassword,
+    email: email,
     role: await Role.find({name: 'student'})
   });
   res.redirect("/auth/sign-in");

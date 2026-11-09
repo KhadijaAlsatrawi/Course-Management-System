@@ -24,7 +24,7 @@ router.get('/new', isSignedIn, isAdmin, async (req, res) => {
 router.post('/', isSignedIn, isAdmin, async (req, res) => {
     try {
         const allRoles = await Role.find()
-        const { username, password, confirmPassword, role } = req.body
+        const { username, email, password, confirmPassword, role } = req.body
 
         const userInDatabase = await User.findOne({ username: username });
         if (userInDatabase) {
@@ -46,11 +46,12 @@ router.post('/', isSignedIn, isAdmin, async (req, res) => {
         const user = await User.create({
             username: username,
             password: hashedPassword,
+            email: email,
             role: role
         });
 
         const msg = encodeURIComponent(`User "${user.username}" has been created.`)
-        res.redirect(`/user?message=${msg}&type=success`);
+        res.redirect(`/admin?message=${msg}&type=success`);
 
     } catch (err) {
         const allRoles = await Role.find()
@@ -93,7 +94,7 @@ router.put('/:userId/role', isSignedIn, isAdmin, async (req, res) => {
         });
 
         const msg = encodeURIComponent(`User "${user.username}" has been updated.`)
-        res.redirect(`/user/${user._id}?message=${msg}&type=success`);
+        res.redirect(`/admin?message=${msg}&type=success`);
     } catch (err) {
         const allRoles = await Role.find()
         const foundUser = await User.findById(req.params.userId)
@@ -172,7 +173,7 @@ router.delete('/:userId', isSignedIn, isAdmin, async (req, res) => {
         const deletedUser = await User.findByIdAndDelete(req.params.userId)
 
         const msg = encodeURIComponent(`User "${deletedUser.username}" has been deleted.`)
-        res.redirect(`/user?message=${msg}&type=success`);
+        res.redirect(`/admin?message=${msg}&type=success`);
     } catch (err) {
         console.log('Error: ', err)
         const msg = encodeURIComponent(`Something went wrong.`)
@@ -229,16 +230,13 @@ router.put('/:userId/change-password', isSignedIn, isOwner, async (req, res) => 
 })
 
 //read one 
-router.get('/:userId', isSignedIn, async (req, res) => {
-    if (String(req.session.user._id) === req.params.userId) {
-        try {
-            const foundUser = await User.findById(req.params.userId).populate('role')
-            res.render('user/user-details.ejs', { user: foundUser })
-        } catch (err) {
-            console.log('Error: ', err)
-            res.redirect('/')
-        }
-    } else {
+router.get('/:userId', isSignedIn, isOwner, async (req, res) => {
+
+    try {
+        const foundUser = await User.findById(req.params.userId).populate('role')
+        res.render('user/user-details.ejs', { user: foundUser })
+    } catch (err) {
+        console.log('Error: ', err)
         res.redirect('/')
     }
 })

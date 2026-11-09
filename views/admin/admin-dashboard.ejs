@@ -59,7 +59,7 @@
                                     <a href="/user/<%= oneUser._id %>/update-role"
                                         class="btn btn-sm btn-outline-primary">Update</a>
                                     <form action="/user/<%= oneUser._id %>?_method=DELETE" method="post">
-                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                        <button class="btn btn-sm btn-outline-danger" onclick="confirm('Delete this User?')">Delete</button>
                                     </form>
                                 </div>
                             </td>

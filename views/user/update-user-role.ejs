@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Update User</title>
+    <title>Update User Role</title>
     <link rel="stylesheet" href="/css/custom.css">
     <script defer src="/bootstrap-js/bootstrap.bundle.min.js"></script>
   </head>
@@ -13,7 +13,7 @@
     <div class="container py-5">
       <h1>Update <%= user.username %></h1>
 
-      <form action="/user/<%= user._id %>/role=PUT" method="post">
+      <form action="/user/<%= user._id %>/role?_method=PUT" method="post">
         <div class="form-control border border-primary my-2">
 
           <label for="role">Role: </label>

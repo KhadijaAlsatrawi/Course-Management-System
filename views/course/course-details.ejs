@@ -34,7 +34,7 @@
                         <div class="d-flex gap-2">
                             <a href="/courses/<%= course._id %>/update" class="btn btn-outline-primary">Update Course</a>
                             <form action="/courses/<%= course._id %>?_method=DELETE" method="post">
-                                <button class="btn btn-outline-danger">Delete Course</button>
+                                <button class="btn btn-outline-danger" onclick="confirm('Delete this Course?')">Delete Course</button>
                             </form>
                         </div>
                     <% } %>
@@ -85,7 +85,7 @@
                                         <a href="/sections/<%= oneSection._id %>/update" 
                                             class="btn btn-sm btn-outline-primary">Update</a>
                                         <form action="/sections/<%= oneSection._id %>?_method=DELETE" method="post">
-                                            <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                            <button class="btn btn-sm btn-outline-danger" onclick="confirm('Delete this Section?')">Delete</button>
                                         </form>
                                     <% }else if (user.role === 'student') { %>
                                         <% const registerd = oneSection.students.find(oneStudent=>oneStudent.equals(user._id)) %>

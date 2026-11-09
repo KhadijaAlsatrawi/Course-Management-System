@@ -240,7 +240,9 @@ router.delete('/:sectionId', isSignedIn, isAdmin, async (req, res) => {
     try {
         const foundSection = await Section.findById(req.params.sectionId)
         await Section.findByIdAndDelete(req.params.sectionId)
-        res.redirect('/courses/' + foundSection.course)
+
+        const msg = encodeURIComponent(`Section has been deleted`)
+        res.redirect(`/courses/${foundSection.course}?message=${msg}&type=success`)
     } catch (err) {
         console.log('Error: ', err)
         const msg = encodeURIComponent(`Something went wrong.`)
