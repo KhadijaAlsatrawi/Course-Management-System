@@ -124,12 +124,11 @@ nodemon server.js
 4. Full CRUD on Roles.
 5. Full CRUD on schools.
 6. Registering in sections.
-7. school management.
-8. Profile photo upload.
-9. Integrated Bootstrap.
-10. Toasts.
-11. Sample data in seeds.
-12. Exporting user list to PDF.
+7. Profile photo upload.
+8. Integrated Bootstrap.
+9. Toasts.
+10. Sample data in seeds.
+11. Exporting user list to PDF.
 
 
 ## Future Enhancements
